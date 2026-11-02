@@ -1,0 +1,7 @@
+requirements.txt
+streamlit_app.py
+Dockerfile
+docker-compose.yml
+.git
+__pycache__
+*.pyc
