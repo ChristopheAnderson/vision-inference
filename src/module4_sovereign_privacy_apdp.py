@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 MODULE 4 : PROTECTION DES DONNÉES SENSIBLES & ANONYMISATION VIDÉO TEMPS RÉEL (CONFORMITÉ APDP BÉNIN)
-Agence des Systèmes d'Information et du Numérique (ASIN) — Éthique & Sécurité
+Agence des Systèmes d'Information et du Numérique (Production) — Éthique & Sécurité
 Auteur : Ing. Christophe WAVOEKE
 """
 import hashlib

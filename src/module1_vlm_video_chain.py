@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 MODULE 1 : CHAÎNE D'ANALYSE VIDÉO MULTIMODALE (VLM POIDS OUVERTS) & CALIBRATION
-Agence des Systèmes d'Information et du Numérique (ASIN) — Livrable 1
+Agence des Systèmes d'Information et du Numérique (Production) — Livrable 1
 Auteur : Ing. Christophe WAVOEKE
 """
 import hashlib

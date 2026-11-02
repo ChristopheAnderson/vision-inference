@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 MODULE 3 : OPTIMISATION D'INFÉRENCE (vLLM, QUANTIFICATION, DÉCODAGE GPU) & CAPACITÉ PAR UNITÉ DE CALCUL
-Agence des Systèmes d'Information et du Numérique (ASIN) — Livrable 3
+Agence des Systèmes d'Information et du Numérique (Production) — Livrable 3
 Auteur : Ing. Christophe WAVOEKE
 """
 import math
@@ -103,7 +103,7 @@ INFERENCE_OPTIMIZATION_BENCHMARKS = [
         "Macro_F1_Score": 91.45,
     },
     {
-        "Configuration": "5. Cible ASIN : vLLM AWQ 4-bit + Prefix Caching + FFmpeg NVDEC GPU",
+        "Configuration": "5. Cible Production : vLLM AWQ 4-bit + Prefix Caching + FFmpeg NVDEC GPU",
         "Engine": "vLLM + Marlin AWQ + NVDEC",
         "Precision": "INT4 (AWQ 4-bit)",
         "Video_Decoder": "GPU FFmpeg NVDEC (h264_cuvid)",
@@ -132,7 +132,7 @@ def compute_gpu_capacity_plan(
 ) -> Dict:
     """
     Établit la capacité de traitement réelle par unité de calcul et éclaire le dimensionnement
-    de l'infrastructure souveraine de l'ASIN (Poids modèle + KV-Cache PagedAttention + Débit).
+    de l'infrastructure souveraine de l'Production (Poids modèle + KV-Cache PagedAttention + Débit).
     """
     gpu = GPU_HARDWARE_SPECS[gpu_model_name]
 
@@ -182,7 +182,7 @@ def compute_gpu_capacity_plan(
     required_hourly_rate = math.ceil(daily_video_volume / max(1, target_peak_window_hours))
     if videos_per_hour_per_gpu > 0:
         min_gpus_active = math.ceil(required_hourly_rate / videos_per_hour_per_gpu)
-        recommended_gpus_ha = min_gpus_active + 1  # Redondance N+1 haute disponibilité ASIN
+        recommended_gpus_ha = min_gpus_active + 1  # Redondance N+1 haute disponibilité Production
     else:
         min_gpus_active = 999
         recommended_gpus_ha = 999

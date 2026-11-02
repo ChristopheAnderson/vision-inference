@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 MODULE 5 : ÉVOLUTIONS DU MODÈLE — RECHERCHE SÉMANTIQUE VIDÉO (CLIP/SigLIP) & MULTILINGUISME
-Agence des Systèmes d'Information et du Numérique (ASIN) — Évolutions R&D
+Agence des Systèmes d'Information et du Numérique (Production) — Évolutions R&D
 Auteur : Ing. Christophe WAVOEKE
 """
 from typing import Dict, List

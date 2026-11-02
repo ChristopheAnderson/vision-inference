@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 MODULE 2 : ÉVALUATION OPÉRATIONNELLE, CALIBRATION ECE & PROTOCOLE DE NON-RÉGRESSION
-Agence des Systèmes d'Information et du Numérique (ASIN) — Livrable 2
+Agence des Systèmes d'Information et du Numérique (Production) — Livrable 2
 Auteur : Ing. Christophe WAVOEKE
 """
 import hashlib
@@ -121,7 +121,7 @@ def run_non_regression_protocol(
     overall_pass = all_passed and latency_pass
 
     manifest_payload = {
-        "protocol_version": "ASIN-NRG-2.4",
+        "protocol_version": "Production-NRG-2.4",
         "timestamp_utc": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
         "golden_dataset_id": "GDS-BENIN-VIDEO-2026-Q4 (1880 séquences annotées)",
         "model_baseline": "Qwen2.5-VL-7B-Instruct (FP16)",

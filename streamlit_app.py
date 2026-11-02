@@ -1,13 +1,11 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """
-PLATEFORME SOUVERAINE D'ANALYSE VIDÉO VLM & D'OPTIMISATION D'INFÉRENCE GPU (5 MODULES)
-Agence des Systèmes d'Information et du Numérique (ASIN — Cotonou, Bénin)
+VISIONINFERENCE HUB — PLATEFORME D'ANALYSE VIDÉO VLM & D'OPTIMISATION D'INFÉRENCE GPU (5 MODULES)
 Concepteur : Ing. Christophe WAVOEKE (Ingénieur de Conception Bac+5 — Lauréat ENSGMM / UNSTIM)
 """
 import os
 import sys
 import json
-import base64
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -33,275 +31,229 @@ from src.module4_sovereign_privacy_apdp import (
 from src.module5_multimodal_search_polyglot import semantic_video_search
 
 st.set_page_config(
-    page_title="ASIN Sovereign Vision-Language & GPU Inference Optimization Hub",
+    page_title="VisionInference Hub — Analyse Vidéo VLM & Optimisation GPU",
     page_icon="👁️",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# Style institutionnel ASIN & lisibilité haute densité
+# Light Mode UI & High-Contrast Clean UX
 st.markdown(
     """
     <style>
+    .stApp { background-color: #f8fafc; color: #0f172a; }
     .block-container { padding-top: 1.4rem; padding-bottom: 2rem; }
-    .asin-banner {
-        background: linear-gradient(135deg, #0a0f1d 0%, #1e3a8a 60%, #0369a1 100%);
-        color: #ffffff;
-        padding: 18px 24px;
-        border-radius: 10px;
-        border-bottom: 4px solid #00d4ff;
+    .hero-banner {
+        background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 65%, #e0f2fe 100%);
+        color: #0f172a;
+        padding: 20px 26px;
+        border-radius: 12px;
+        border: 1px solid #bae6fd;
+        border-left: 5px solid #2563eb;
+        box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
         margin-bottom: 18px;
     }
-    .asin-banner h1 { font-size: 24px; font-weight: 800; margin: 0 0 6px 0; color: #ffffff; }
-    .asin-banner p { font-size: 13.5px; color: #e0f2fe; margin: 0; }
+    .hero-banner h1 { font-size: 24px; font-weight: 800; margin: 0 0 6px 0; color: #0f172a; }
+    .hero-banner p { font-size: 13.8px; color: #334155; margin: 0; }
     .kpi-card {
-        background: #0f172a;
-        border: 1px solid #1e293b;
-        border-left: 4px solid #00d4ff;
-        border-radius: 8px;
-        padding: 12px 14px;
-        color: #f8fafc;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-top: 4px solid #2563eb;
+        border-radius: 10px;
+        padding: 14px 16px;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
     }
-    .kpi-label { font-size: 11.5px; color: #94a3b8; text-transform: uppercase; font-weight: 700; }
-    .kpi-val { font-size: 21px; font-weight: 800; color: #38bdf8; margin-top: 3px; }
-    .kpi-sub { font-size: 11px; color: #cbd5e1; }
+    .kpi-title { font-size: 11px; text-transform: uppercase; color: #64748b; font-weight: 700; }
+    .kpi-value { font-size: 22px; font-weight: 800; color: #0f172a; margin: 2px 0; }
+    .kpi-sub { font-size: 11.5px; color: #059669; font-weight: 600; }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-# Photo de profil dans la barre latérale
-profile_path = os.path.join(os.path.dirname(__file__), "assets", "profile.jpg")
-if os.path.exists(profile_path):
-    with open(profile_path, "rb") as f:
-        b64_img = base64.b64encode(f.read()).decode()
-    st.sidebar.markdown(
-        f"""
-        <div style="display:flex; justify-content:center; margin: 8px 0 12px 0;">
-            <img src="data:image/jpeg;base64,{b64_img}"
-                 style="width:115px; height:115px; border-radius:50%; object-fit:cover; border:3px solid #00d4ff; box-shadow:0 4px 12px rgba(0,212,255,0.3);"/>
-        </div>
-        """,
-        unsafe_allow_html=True,
+with st.sidebar:
+    profile_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "profile.jpg")
+    if os.path.exists(profile_path):
+        st.image(profile_path, width=110)
+    st.markdown("### **Ing. Christophe WAVOEKE**")
+    st.caption(
+        "Ingénieur IA Vision, Modèles Multimodaux (VLM) & Optimisation d'Inférence GPU\n\n"
+        "🎓 **Ingénieur de Conception (Bac+5)** — Génie Mathématique & Informatique (Lauréat ENSGMM / UNSTIM)"
     )
-
-st.sidebar.title("👁️ ASIN Vision & vLLM Hub")
-st.sidebar.markdown(
-    "**Ing. Christophe WAVOEKE**  \n"
-    "Ingénieur IA Vision & Optimisation d'Inférence  \n"
-    "*Lauréat ENSGMM / UNSTIM (Bac+5)*"
-)
-st.sidebar.markdown("---")
-
-module_choice = st.sidebar.radio(
-    "Navigation des Modules Opérationnels :",
-    [
-        "M1 · Chaîne Vision VLM & Calibration",
-        "M2 · Évaluation & Gate Non-Régression",
-        "M3 · Optimisation vLLM & Capacité GPU",
-        "M4 · Anonymisation Vidéo APDP Bénin",
-        "M5 · Recherche Sémantique & Langues",
-    ],
-)
-
-st.sidebar.markdown("---")
-st.sidebar.info(
-    "📌 **Livrables ASIN couverts :**\n"
-    "1. Chaîne VLM versionnée (`v2.4`)\n"
-    "2. Jeux d'évaluation & Non-régression\n"
-    "3. Gains `vLLM`/`AWQ`/`NVDEC` & Capacité GPU"
-)
+    st.markdown("---")
+    st.markdown("#### 🧭 Architecture (5 Modules)")
+    st.markdown(
+        "- **M1 :** Chaîne Vidéo VLM (`Qwen2.5-VL`), `FFmpeg NVDEC`, Calibration & Consensus\n"
+        "- **M2 :** Évaluation (`Précision/Rappel/F1`) & Gate CI/CD de Non-Régression\n"
+        "- **M3 :** Optimisation `vLLM` (`AWQ 4-bit` / `FP8`) & Dimensionnement GPU\n"
+        "- **M4 :** Anonymisation Temps Réel des Données Personnelles\n"
+        "- **M5 :** Recherche Vectorielle Multimodale `SigLIP` & Multilinguisme"
+    )
+    st.markdown("---")
+    st.markdown("🔗 [Code Source GitHub](https://github.com/ChristopheAnderson/vision-inference)")
 
 st.markdown(
     """
-    <div class="asin-banner">
-        <h1>👁️ Plateforme Souveraine d'Analyse Vidéo VLM & d'Optimisation d'Inférence GPU</h1>
-        <p>Architecture de référence pour l'<strong>Agence des Systèmes d'Information et du Numérique (ASIN — Cotonou)</strong> · Pôle Systèmes d'Information et Digitalisation (PSID)</p>
+    <div class="hero-banner">
+        <h1>👁️ VisionInference Hub — Analyse Vidéo VLM & Optimisation d'Inférence GPU</h1>
+        <p>Architecture industrielle de traitement vidéo à fort volume : Modèles Vision-Langage à poids ouverts (<b>Qwen2.5-VL-7B / LLaVA-OneVision</b>), Décodage matériel <b>FFmpeg NVDEC</b>, Calibration Probabiliste (<i>Temperature Scaling</i>), Protocole de Non-Régression Déterministe et Serveur d'Inférence <b>vLLM (PagedAttention + AWQ 4-bit)</b>.</p>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
-# ==============================================================================
-# MODULE 1 : CHAÎNE D'ANALYSE VIDÉO VLM & CALIBRATION
-# ==============================================================================
-if module_choice.startswith("M1"):
-    st.subheader("🎬 Module 1 — Chaîne d'Analyse Vidéo VLM à Poids Ouverts, Calibration & Vérification Croisée")
-    col_cfg1, col_cfg2, col_cfg3, col_cfg4 = st.columns(4)
-    with col_cfg1:
-        sampling_fps = st.slider("Cadence d'échantillonnage (FPS)", 0.5, 5.0, 2.0, 0.5)
-    with col_cfg2:
-        temperature_T = st.slider("Température Calibration (T*)", 0.80, 2.20, 1.38, 0.02)
-    with col_cfg3:
-        det_threshold = st.slider("Seuil Calibré de Détection", 0.50, 0.90, 0.74, 0.02)
-    with col_cfg4:
-        consensus_w = st.selectbox("Fenêtre Vérification Croisée (trames)", [3, 5, 7], index=1)
-
-    df_chain, summary = simulate_video_chain_execution(
-        duration_sec=60,
-        source_fps=30,
-        sampling_fps=sampling_fps,
-        temperature_T=temperature_T,
-        detection_threshold=det_threshold,
-        consensus_window=consensus_w,
+c1, c2, c3, c4 = st.columns(4)
+with c1:
+    st.markdown(
+        '<div class="kpi-card"><div class="kpi-title">Débit vLLM AWQ 4-Bit</div>'
+        '<div class="kpi-value">4 615 vidéos/h</div>'
+        '<div class="kpi-sub">Gain ×6.22 vs PyTorch FP16 (1 GPU L4)</div></div>',
+        unsafe_allow_html=True,
+    )
+with c2:
+    st.markdown(
+        '<div class="kpi-card"><div class="kpi-title">Empreinte Mémoire VRAM</div>'
+        '<div class="kpi-value">6.4 Go (-65.2%)</div>'
+        '<div class="kpi-sub">Contre 18.4 Go en FP16 non quantifié</div></div>',
+        unsafe_allow_html=True,
+    )
+with c3:
+    st.markdown(
+        '<div class="kpi-card"><div class="kpi-title">Calibration & Consensus</div>'
+        '<div class="kpi-value">ECE : 0.019</div>'
+        '<div class="kpi-sub">Temperature Scaling T*=1.38 · Fenêtre N=5</div></div>',
+        unsafe_allow_html=True,
+    )
+with c4:
+    st.markdown(
+        '<div class="kpi-card"><div class="kpi-title">Gate Non-Régression</div>'
+        '<div class="kpi-value">93.1% F1-Score</div>'
+        '<div class="kpi-sub">1 880 vidéos · Tolérance stricte ≤ 1.0%</div></div>',
+        unsafe_allow_html=True,
     )
 
-    k1, k2, k3, k4 = st.columns(4)
-    k1.metric("Réduction Trames (FFmpeg)", f"-{summary['compression_ratio_pct']} %", f"{summary['sampled_frames']} / {summary['total_raw_frames']} trames")
-    k2.metric("Faux Positifs Éliminés", f"{summary['false_positives_eliminated']} alerte(s)", "Grâce à la vérification croisée")
-    k3.metric("Précision Vérifiée", f"{summary['precision_verified']} %", f"Seuil T* = {temperature_T}")
-    k4.metric("Rappel Vérifié", f"{summary['recall_verified']} %", f"{summary['scenes_detected']} plans temporels")
+st.write("")
 
-    st.markdown("#### ⚡ Commande `FFmpeg NVDEC` Générée (Décodage Accéléré par GPU + Détection de Scène)")
-    st.code(build_ffmpeg_nvdec_command("s3://asin-sovereign-bucket/flux_cotonou_cam04.mp4", sampling_fps, 0.28, True), language="bash")
+tabs = st.tabs(
+    [
+        "🎬 M1 : Chaîne VLM Vidéo & Calibration",
+        "🛡️ M2 : Évaluation & Non-Régression",
+        "⚡ M3 : Optimisation vLLM & Capacité GPU",
+        "🔒 M4 : Anonymisation Temps Réel (PII)",
+        "🌍 M5 : Recherche Multimodale & Langues",
+    ]
+)
 
-    fig = go.Figure()
-    fig.add_trace(go.Scatter(x=df_chain["timestamp_sec"], y=df_chain["uncalibrated_prob"], mode="lines", name="Score Brut Non-Calibré", line=dict(color="#94a3b8", dash="dot")))
-    fig.add_trace(go.Scatter(x=df_chain["timestamp_sec"], y=df_chain["calibrated_prob"], mode="lines+markers", name=f"Score Calibré (T*={temperature_T})", line=dict(color="#0ea5e9", width=2.5)))
-    fig.add_trace(go.Scatter(x=df_chain["timestamp_sec"], y=df_chain["consensus_ratio"], mode="lines", name="Ratio Consensus Multi-Trames", line=dict(color="#10b981", width=2.5)))
-    fig.add_hline(y=det_threshold, line_dash="dash", line_color="#f59e0b", annotation_text=f"Seuil Calibré ({det_threshold})")
-    fig.update_layout(title="Profil Temporel des Scores VLM, Calibration Temperature Scaling & Vérification Croisée (60s)", xaxis_title="Temps Vidéo (secondes)", yaxis_title="Probabilité / Consensus", height=390)
-    st.plotly_chart(fig, use_container_width=True)
+with tabs[0]:
+    st.subheader("Module 1 — Chaîne d'Analyse Vision Documentée, Versionnée et Maintenable")
+    col_a, col_b = st.columns([1, 1])
+    with col_a:
+        duration_s = st.slider("Durée de la séquence vidéo (secondes)", 15, 300, 60, 15)
+        fps_target = st.slider("Cadence d'échantillonnage FFmpeg (FPS)", 0.5, 5.0, 2.0, 0.5)
+        scene_thresh = st.slider("Seuil de détection de changement de scène (ΔHSV)", 0.10, 0.50, 0.28, 0.02)
+        temp_t = st.slider("Température de calibration probabiliste (T*)", 1.00, 2.20, 1.38, 0.02)
+        window_n = st.slider("Fenêtre de vérification croisée inter-trames (N)", 3, 9, 5, 2)
+    with col_b:
+        ffmpeg_cmd = build_ffmpeg_nvdec_command("flux_camera_01.mp4", "keyframes/", fps_target, scene_thresh)
+        st.markdown("**Commande d'extraction hybride `FFmpeg NVDEC (CUDA)` générée :**")
+        st.code(ffmpeg_cmd, language="bash")
+        sim_res = simulate_video_chain_execution(
+            video_duration_s=duration_s,
+            source_fps=30,
+            sampled_fps=fps_target,
+            temperature_t=temp_t,
+            consensus_window=window_n,
+        )
+        st.json(sim_res["integrity_and_sampling"])
 
-    st.markdown("#### 📋 Journal d'Audit des Trames Échantillonnées (Hash SHA-256 & Décision Croisée)")
-    st.dataframe(df_chain, use_container_width=True, height=260)
-
-# ==============================================================================
-# MODULE 2 : ÉVALUATION QUALITÉ & PROTOCOLE DE NON-RÉGRESSION
-# ==============================================================================
-elif module_choice.startswith("M2"):
-    st.subheader("🛡️ Module 2 — Méthode d'Évaluation, Métriques (Précision/Rappel) & Protocole de Non-Régression")
-    c1, c2, c3 = st.columns(3)
-    with c1:
-        max_drop = st.slider("Tolérance Max Perte F1 (%)", 0.2, 2.5, 1.0, 0.1)
-    with c2:
-        cand_lat = st.slider("Latence P95 Mesurée du Candidat (s)", 0.40, 2.20, 0.78, 0.05)
-    with c3:
-        sim_bad = st.checkbox("Simuler une invite dégradée (Test de blocage CI/CD)", value=False)
-
-    df_eval, manifest = run_non_regression_protocol(
-        max_allowed_f1_drop_pct=max_drop,
-        candidate_latency_p95=cand_lat,
-        simulate_bad_prompt=sim_bad,
+    df_frames = pd.DataFrame(sim_res["frame_timeline"])
+    fig1 = go.Figure()
+    fig1.add_trace(
+        go.Scatter(
+            x=df_frames["timestamp_s"],
+            y=df_frames["raw_prob"],
+            mode="lines+markers",
+            name="Probabilité brute VLM (Non calibrée)",
+            line=dict(color="#f59e0b", dash="dot"),
+        )
     )
+    fig1.add_trace(
+        go.Scatter(
+            x=df_frames["timestamp_s"],
+            y=df_frames["calibrated_prob"],
+            mode="lines+markers",
+            name=f"Probabilité calibrée (T*={temp_t}) + Consensus N={window_n}",
+            line=dict(color="#2563eb", width=3),
+        )
+    )
+    fig1.add_hline(y=0.72, line_dash="dash", line_color="#059669", annotation_text="Seuil Opérationnel Calibré (0.72)")
+    fig1.update_layout(
+        title="Calibration Temperature Scaling & Filtrage des Faux Positifs Isolés par Vérification Croisée",
+        xaxis_title="Temps Vidéo (secondes)",
+        yaxis_title="Probabilité de Détection",
+        template="plotly_white",
+        height=390,
+    )
+    st.plotly_chart(fig1, use_container_width=True)
 
-    if manifest["gate_decision"] == "APPROVED_FOR_PRODUCTION":
-        st.success(f"✅ **PROTOCOLE DE NON-RÉGRESSION VALIDÉ** — Déploiement autorisé (`{manifest['gate_decision']}`) | Empreinte SHA-256 : `{manifest['reproducibility_sha256'][:24]}...`")
+with tabs[1]:
+    st.subheader("Module 2 — Méthode d'Évaluation Opérationnelle & Protocole de Non-Régression")
+    max_drop = st.slider("Tolérance maximale de baisse de F1-Score autorisée (Gate CI/CD)", 0.002, 0.020, 0.010, 0.001)
+    eval_report = run_non_regression_protocol(max_allowed_f1_drop=max_drop)
+    if eval_report["overall_gate_passed"]:
+        st.success(
+            f"✅ GATE DE NON-RÉGRESSION VALIDÉE — Manifeste SHA-256 : `{eval_report['reproducibility_manifest_sha256'][:24]}...`"
+        )
     else:
-        st.error(f"❌ **MISE EN PRODUCTION BLOQUÉE PAR LA GATE CI/CD** — Régression détectée (`{manifest['gate_decision']}`)")
+        st.error("❌ GATE DE NON-RÉGRESSION BLOQUÉE — Déploiement refusé.")
+    st.dataframe(pd.DataFrame(eval_report["categories_ detail"]), use_container_width=True)
 
-    st.dataframe(df_eval, use_container_width=True)
-
-    col_g1, col_g2 = st.columns([3, 2])
-    with col_g1:
-        fig_bar = go.Figure(data=[
-            go.Bar(name="Production Baseline (FP16)", x=df_eval["Code Catégorie"], y=df_eval["F1 Prod (FP16)"], marker_color="#1e3a8a"),
-            go.Bar(name="Candidat vLLM AWQ 4-bit (v2.4)", x=df_eval["Code Catégorie"], y=df_eval["F1 Candidat (AWQ)"], marker_color="#00d4ff"),
-        ])
-        fig_bar.update_layout(barmode="group", title="Comparaison F1-Score par Catégorie (Golden Dataset : 1 880 vidéos)", yaxis_range=[80, 100], height=340)
-        st.plotly_chart(fig_bar, use_container_width=True)
-    with col_g2:
-        st.markdown("#### 📜 Manifeste de Reproductibilité")
-        st.json(manifest)
-
-# ==============================================================================
-# MODULE 3 : OPTIMISATION D'INFÉRENCE (vLLM) & CAPACITÉ PAR UNITÉ DE CALCUL
-# ==============================================================================
-elif module_choice.startswith("M3"):
-    st.subheader("⚡ Module 3 — Optimisation d'Inférence (`vLLM` / Quantification) & Dimensionnement Capacitaire GPU")
+with tabs[2]:
+    st.subheader("Module 3 — Gains d'Optimisation Mesurés (`vLLM` / Quantification) & Capacité par GPU")
     df_bench = get_optimization_benchmarks_df()
-    st.markdown("#### 1. Gains d'Optimisation Mesurés sur `Qwen2.5-VL-7B-Instruct` (Serveur `vLLM` + `AWQ` + `FFmpeg NVDEC`)")
     st.dataframe(df_bench, use_container_width=True)
 
-    b_col1, b_col2 = st.columns(2)
-    with b_col1:
-        fig_tp = px.bar(
-            df_bench,
-            x="Throughput_Videos_Per_Hour_L4",
-            y="Configuration",
-            orientation="h",
-            color="VRAM_Peak_GB",
-            title="Débit de Traitement (Vidéos/Heure sur 1 GPU NVIDIA L4 24Go)",
-            color_continuous_scale="Tealgrn",
+    c_left, c_right = st.columns(2)
+    with c_left:
+        gpu_choice = st.selectbox("Sélectionner l'unité de calcul GPU de référence", list(GPU_HARDWARE_SPECS.keys()), index=1)
+        daily_target = st.number_input("Volume cible de vidéos à analyser par 24h", 1000, 1000000, 100000, 5000)
+        avg_dur = st.slider("Durée moyenne par vidéo (s)", 15, 180, 60, 15)
+        cap_plan = compute_gpu_capacity_plan(gpu_choice, avg_dur, 2.0, 8, daily_target)
+        st.info(
+            f"**Capacité par unité `{gpu_choice}` :** `{cap_plan['Reference_Videos_Per_Hour_1_GPU']:,}` vidéos/heure "
+            f"(`{cap_plan['Reference_Videos_Per_24h_1_GPU']:,}` vidéos/24h)\n\n"
+            f"**Dimensionnement recommandé pour `{daily_target:,}` vidéos/jour :** "
+            f"**`{cap_plan['Required_GPU_Units_With_15pct_Headroom']} unité(s) GPU`** (marge de sécurité 15% incluse)."
         )
-        st.plotly_chart(fig_tp, use_container_width=True)
-    with b_col2:
-        fig_lat = px.bar(
+    with c_right:
+        fig_bench = px.bar(
             df_bench,
             x="Configuration",
-            y=["Latency_P50_s", "Latency_P95_s"],
-            barmode="group",
-            title="Réduction de la Latence d'Inférence P50 & P95 (secondes / vidéo)",
+            y="Throughput_Videos_Per_Hour",
+            color="VRAM_Peak_GB",
+            text="Speedup_Factor",
+            title="Capacité Horaire (Vidéos/h) & Empreinte VRAM Pic (Go)",
+            template="plotly_white",
+            color_continuous_scale="Blues",
         )
-        st.plotly_chart(fig_lat, use_container_width=True)
+        st.plotly_chart(fig_bench, use_container_width=True)
 
-    st.markdown("---")
-    st.markdown("#### 2. Calculateur Interactif de Capacité par Unité de Calcul & Dimensionnement Infrastructure ASIN")
-    p1, p2, p3, p4 = st.columns(4)
-    with p1:
-        gpu_choice = st.selectbox("Unité de Calcul GPU Cible", list(GPU_HARDWARE_SPECS.keys()), index=1)
-    with p2:
-        daily_vol = st.number_input("Volume Cible (Vidéos / Jour)", min_value=1000, max_value=250000, value=25000, step=1000)
-    with p3:
-        quant_choice = st.selectbox("Schéma de Quantification", ["AWQ_INT4", "GPTQ_INT4", "FP8", "INT8", "FP16"], index=0)
-    with p4:
-        nvdec_flag = st.checkbox("Activer Décodage GPU FFmpeg NVDEC", value=True)
-
-    plan = compute_gpu_capacity_plan(
-        gpu_model_name=gpu_choice,
-        daily_video_volume=daily_vol,
-        quantization_mode=quant_choice,
-        use_gpu_nvdec=nvdec_flag,
-    )
-
-    m1, m2, m3, m4 = st.columns(4)
-    m1.metric("Capacité Réelle / 1 GPU", f"{plan['capacity_videos_per_hour_per_gpu']:,} vidéos/h", f"{plan['throughput_sampled_fps']} FPS analysés")
-    m2.metric("VRAM Poids + KV-Cache Libre", f"{plan['weights_vram_gb']} Go / {plan['available_kv_cache_gb']} Go", f"Max {plan['max_concurrent_sequences']} séq. simultanées")
-    m3.metric("Latence Effective / Vidéo", f"{plan['effective_latency_per_video_sec']} s", "Continuous Batching vLLM")
-    m4.metric("Dimensionnement ASIN (N+1 HA)", f"{plan['recommended_gpus_n_plus_1']} GPU", f"{plan['min_gpus_required']} actif(s) + 1 redondance ({plan['estimated_power_kw']} kW)")
-
-    st.json(plan)
-
-# ==============================================================================
-# MODULE 4 : PROTECTION DES DONNÉES SENSIBLES & ANONYMISATION APDP BÉNIN
-# ==============================================================================
-elif module_choice.startswith("M4"):
-    st.subheader("🔒 Module 4 — Anonymisation Vidéo Temps Réel & Conformité Loi n° 2017-20 (APDP Bénin)")
-    anon_mode = st.selectbox(
-        "Méthode de Masquage des Données à Caractère Personnel (Visages & Plaques) :",
-        ["GAUSSIAN_BLUR", "MOSAIC_PIXELATION", "SOLID_CRYPTO_MASK"],
-    )
+with tabs[3]:
+    st.subheader("Module 4 — Anonymisation Temps Réel Visages & Plaques (Loi N° 2017-20 / RGPD)")
     raw_img, boxes = generate_synthetic_urban_scene()
-    anon_img, audit_info = apply_apdp_anonymization(raw_img, boxes, method=anon_mode)
+    anon_img, audit = apply_apdp_anonymization(raw_img, boxes)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("**Trame Brute Capturée (Données personnelles exposées)**")
+        st.image(raw_img, use_container_width=True)
+    with col2:
+        st.markdown("**Trame Anonymisée à la Volée en RAM (Conforme Protection des Données)**")
+        st.image(anon_img, use_container_width=True)
+    st.json(audit)
 
-    im_col1, im_col2 = st.columns(2)
-    with im_col1:
-        st.markdown("**Flux Brut Capturé (Mémoire Volatiles RAM uniquement)**")
-        st.image(raw_img, caption="Trame Brute avec 2 Plaques & 2 Visages détectés", use_container_width=True)
-    with im_col2:
-        st.markdown(f"**Flux Anonymisé APDP ({anon_mode}) — Prêt pour Inférence VLM & Archivage**")
-        st.image(anon_img, caption=f"SHA-256 Après Anonymisation : {audit_info['frame_sha256_after']}", use_container_width=True)
-
-    st.markdown("#### 📜 Certificat d'Audit de Conformité APDP & PSSI ASIN")
-    st.json(audit_info)
-
-# ==============================================================================
-# MODULE 5 : RECHERCHE SÉMANTIQUE VIDÉO & LANGUES NATIONALES
-# ==============================================================================
-elif module_choice.startswith("M5"):
-    st.subheader("🌍 Module 5 — Évolutions Modèle : Recherche Sémantique Multimodale (`SigLIP`) & Multilinguisme")
-    q_col1, q_col2 = st.columns([3, 1])
-    with q_col1:
-        user_query = st.text_input(
-            "Requête Sémantique en Langage Naturel sur les Archives Vidéo :",
-            value="véhicule immobilisé nuit urgence congestion sécurité",
-        )
-    with q_col2:
-        lang_sel = st.selectbox(
-            "Langue de Synthèse VLM :",
-            ["Français", "English (Technical)", "Fon (Langue Nationale Bénin)", "Yoruba (Langue Nationale Bénin)"],
-        )
-
-    df_search = semantic_video_search(user_query, target_lang=lang_sel)
-    st.dataframe(df_search, use_container_width=True)
-
+with tabs[4]:
+    st.subheader("Module 5 — Recherche Multimodale Vectorielle (`SigLIP`) & Synthèses Multilingues")
+    query_txt = st.text_input("Requête sémantique multimodale :", "Intrusion périmétrique nocturne détectée près du dépôt")
+    lang_code = st.selectbox("Langue de synthèse :", ["fr", "en", "fon", "yo"], index=0)
+    results = semantic_video_search(query_txt, top_k=3, target_lang=lang_code)
+    st.dataframe(pd.DataFrame(results), use_container_width=True)

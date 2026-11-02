@@ -1,7 +1,7 @@
 [project]
-name = "asin-vision-inference-hub"
+name = "vision-inference-hub"
 version = "2.4.0"
-description = "Plateforme Souveraine d'Analyse Vidéo VLM & Optimisation d'Inférence GPU — ASIN Bénin (PS01334)"
+description = "Plateforme Industrielle d'Analyse Vidéo VLM & d'Optimisation d'Inférence GPU (vLLM / AWQ / FFmpeg NVDEC)"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [

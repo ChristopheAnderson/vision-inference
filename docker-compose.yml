@@ -1,56 +1,41 @@
 version: "3.9"
 
-# ==============================================================================
-# ORCHESTRATION PRODUCTION SOUVERAINE ASIN (Air-Gapped / On-Premise GPU Cluster)
-# 1. Serveur d'inférence vLLM (Qwen2.5-VL-7B-Instruct-AWQ, PagedAttention)
-# 2. Plateforme d'Analyse Vision, Gate de Non-Régression & Capacity Planner
-# ==============================================================================
 services:
-  vllm-vision-server:
-    image: vllm/vllm-openai:latest
-    container_name: asin-vllm-vision-engine
+  vllm-vision-engine:
+    image: vllm/vllm-openai:v0.6.2
+    container_name: vllm-qwen25-vl-awq
     restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - CUBLAS_WORKSPACE_CONFIG=:4096:8
+      - VLLM_WORKER_MULTIPROC_METHOD=spawn
+    command: >
+      --model Qwen/Qwen2.5-VL-7B-Instruct-AWQ
+      --quantization awq_marlin
+      --dtype half
+      --gpu-memory-utilization 0.90
+      --max-model-len 8192
+      --max-num-seqs 28
+      --limit-mm-per-prompt image=8
+      --enable-prefix-caching
+      --seed 42
     deploy:
       resources:
         reservations:
           devices:
             - driver: nvidia
               count: 1
-              capabilities: [gpu]
-    environment:
-      - VLLM_USE_V1=1
-      - CUDA_VISIBLE_DEVICES=0
-    volumes:
-      - ./models_cache:/root/.cache/huggingface:ro
-    ports:
-      - "8000:8000"
-    command: >
-      --model Qwen/Qwen2.5-VL-7B-Instruct-AWQ
-      --quantization awq
-      --dtype half
-      --gpu-memory-utilization 0.88
-      --max-model-len 8192
-      --max-num-seqs 32
-      --limit-mm-per-prompt image=8
-      --enable-prefix-caching
-      --seed 42
-      --port 8000
+              capabilities: [gpu, video]
 
-  asin-vision-hub:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: asin-vision-hub-dashboard
+  vision-hub-dashboard:
+    build: .
+    container_name: vision-inference-hub
     restart: unless-stopped
-    depends_on:
-      - vllm-vision-server
-    environment:
-      - VLLM_ENDPOINT_URL=http://vllm-vision-server:8000/v1
-      - APDP_AUDIT_ENCRYPTION_ENABLED=true
-      - DETERMINISTIC_SEED=42
     ports:
       - "8501:8501"
-    volumes:
-      - ./configs:/app/configs:ro
-      - ./audit_logs:/app/audit_logs
-
+    environment:
+      - VLLM_ENDPOINT=http://vllm-vision-engine:8000/v1
+      - PRIVACY_BLUR_ENABLED=true
+    depends_on:
+      - vllm-vision-engine

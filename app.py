@@ -1,23 +1,20 @@
 # -*- coding: utf-8 -*-
 """
-ASIN Sovereign Vision-Language & GPU Inference Optimization Hub — FastAPI Entrypoint
-Agence des Systèmes d'Information et du Numérique (ASIN — Cotonou, Bénin) | Avis PS01334
+VisionInference Hub — Plateforme Industrielle d'Analyse Vidéo VLM & d'Optimisation d'Inférence GPU
 Concepteur : Ing. Christophe WAVOEKE (Ingénieur de Conception Bac+5 — Lauréat ENSGMM / UNSTIM)
 """
-import os
 import math
 import hashlib
 from pathlib import Path
-from typing import Optional
 from fastapi import FastAPI, Query
 from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
 
 BASE_DIR = Path(__file__).resolve().parent
 
 app = FastAPI(
-    title="ASIN Sovereign Vision-Language & GPU Inference Optimization Hub API",
+    title="VisionInference Hub — VLM Video Analytics & GPU Optimization API",
     description=(
-        "API de démonstration des 3 Livrables techniques attendus par l'ASIN (Cotonou, Bénin — Avis PS01334) : "
+        "Plateforme industrielle d'analyse automatisée de vidéos et d'optimisation d'inférence GPU : "
         "(1) Chaîne d'analyse vidéo VLM à poids ouverts (Qwen2.5-VL-7B / LLaVA-OneVision) avec FFmpeg NVDEC, "
         "Temperature Scaling (T*=1.38) et vérification croisée multi-trames ; "
         "(2) Méthode d'évaluation opérationnelle (Précision, Rappel, F1, ECE) et Gate CI/CD de non-régression ; "
@@ -61,21 +58,21 @@ def serve_assets(filename: str):
 def health_check():
     return {
         "status": "operational",
-        "service": "asin-vision-inference-hub",
+        "service": "vision-inference-hub",
         "version": "2.4.0",
-        "recruitment_ref": "PS01334 — ASIN Cotonou (PSID / Service Data, IA et Interopérabilité)",
         "author": "Ing. Christophe WAVOEKE (Bac+5 ENSGMM/UNSTIM — Lauréat Prix Route de la Soie)",
-        "deliverables_covered": [
-            "Livrable 1 : Chaîne d'analyse vision VLM documentée, versionnée et maintenable",
-            "Livrable 2 : Méthode et jeux d'évaluation opérationnels avec protocole de non-régression",
-            "Livrable 3 : Gains d'optimisation mesurés (vLLM / AWQ 4-bit / NVDEC) et capacité par GPU",
+        "modules": [
+            "Module 1 : Chaîne d'analyse vision VLM documentée, versionnée et maintenable",
+            "Module 2 : Méthode et jeux d'évaluation opérationnels avec protocole de non-régression",
+            "Module 3 : Gains d'optimisation mesurés (vLLM / AWQ 4-bit / NVDEC) et capacité par GPU",
+            "Module 4 : Anonymisation temps réel des données personnelles (Loi N° 2017-20 / RGPD)",
+            "Module 5 : Recherche vectorielle multimodale SigLIP et synthèse multilingue",
         ],
-        "apdp_compliance": "Loi N° 2017-20 portant Code du Numérique en République du Bénin",
     }
 
 
-@app.get("/api/v1/livrable1/chain", tags=["Livrable 1 — Chaîne Vision VLM & Calibration"])
-def simulate_livrable1_chain(
+@app.get("/api/v1/module1/chain", tags=["Module 1 — Chaîne Vision VLM & Calibration"])
+def simulate_vlm_chain(
     logit: float = Query(2.15, description="Logit brut du VLM pour la classe cible"),
     temperature: float = Query(1.38, ge=0.5, le=3.0, description="Température de calibration T*"),
     window_size: int = Query(5, ge=3, le=11, description="Taille de la fenêtre de vérification croisée N"),
@@ -87,7 +84,7 @@ def simulate_livrable1_chain(
         "-vf \"select='gte(t-prev_selected_t\\,0.5)+gt(scene\\,0.28)',scale=640:360\" -vsync vfr keyframes/frame_%05d.jpg"
     )
     return {
-        "deliverable": "Livrable 1 — Chaîne Vision VLM (Qwen2.5-VL-7B / LLaVA-OneVision)",
+        "module": "Module 1 — Chaîne Vision VLM (Qwen2.5-VL-7B / LLaVA-OneVision)",
         "prompt_registry_version": "v2.4.0",
         "ffmpeg_nvdec_command": ffmpeg_cmd,
         "frame_reduction_ratio": "93.3% (-28 trames/s redondantes éliminées)",
@@ -107,8 +104,8 @@ def simulate_livrable1_chain(
     }
 
 
-@app.get("/api/v1/livrable2/non-regression", tags=["Livrable 2 — Évaluation & Non-Régression"])
-def evaluate_livrable2_gate():
+@app.get("/api/v1/module2/non-regression", tags=["Module 2 — Évaluation & Non-Régression"])
+def evaluate_non_regression_gate():
     categories = [
         {
             "id": "CAT_01_PERIMETER_INTRUSION",
@@ -138,7 +135,7 @@ def evaluate_livrable2_gate():
             "gate_passed": True,
         },
         {
-            "id": "CAT_04_APDP_PII_DETECTION",
+            "id": "CAT_04_PRIVACY_PII_DETECTION",
             "support_videos": 640,
             "calibrated_threshold": 0.55,
             "baseline_fp16": {"precision": 0.968, "recall": 0.952, "f1": 0.9599},
@@ -147,9 +144,9 @@ def evaluate_livrable2_gate():
             "gate_passed": True,
         },
     ]
-    manifest_hash = hashlib.sha256(b"ASIN-PS01334-Qwen2.5-VL-7B-AWQ-v2.4.0-seed42").hexdigest()
+    manifest_hash = hashlib.sha256(b"VisionInference-Qwen2.5-VL-7B-AWQ-v2.4.0-seed42").hexdigest()
     return {
-        "deliverable": "Livrable 2 — Protocole d'Évaluation & Non-Régression (VisionEval-Gate)",
+        "module": "Module 2 — Protocole d'Évaluation & Non-Régression (VisionEval-Gate)",
         "golden_dataset_total_videos": 1880,
         "reproducibility": {
             "seed": 42,
@@ -163,8 +160,8 @@ def evaluate_livrable2_gate():
     }
 
 
-@app.get("/api/v1/livrable3/capacity", tags=["Livrable 3 — Optimisation vLLM & Capacité GPU"])
-def compute_livrable3_capacity(
+@app.get("/api/v1/module3/capacity", tags=["Module 3 — Optimisation vLLM & Capacité GPU"])
+def compute_gpu_capacity(
     gpu_model: str = Query("NVIDIA_L4_24GB", description="Modèle GPU (NVIDIA_T4_16GB, NVIDIA_L4_24GB, NVIDIA_A100_80GB)"),
     daily_target_videos: int = Query(100000, ge=1000, le=5000000, description="Volume cible de vidéos par 24h"),
 ):
@@ -177,7 +174,7 @@ def compute_livrable3_capacity(
     daily_per_gpu = chosen["videos_per_hour"] * 24
     required_gpus = max(1, math.ceil(daily_target_videos / (daily_per_gpu * 0.85)))
     return {
-        "deliverable": "Livrable 3 — Optimisation d'Inférence vLLM (AWQ 4-bit + NVDEC) & Dimensionnement GPU",
+        "module": "Module 3 — Optimisation d'Inférence vLLM (AWQ 4-bit + NVDEC) & Dimensionnement GPU",
         "selected_gpu": gpu_model,
         "inference_engine": "vLLM 0.6.2 (PagedAttention + Continuous Batching + Prefix Caching)",
         "quantization": "AWQ 4-bit (Marlin kernels) — VRAM réduite de 18.4 Go à 6.4 Go (-65.2%)",
