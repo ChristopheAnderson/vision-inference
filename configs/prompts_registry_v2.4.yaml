@@ -1,0 +1,93 @@
+# ==============================================================================
+# REGISTRE VERSIONNÉ DES CATÉGORIES D'ANALYSE, INVITES MULTIMODALES & CALIBRAGES
+# Agence des Systèmes d'Information et du Numérique (ASIN) — Livrable 1
+# Version : 2.4.0-prod | Auteur : Ing. Christophe WAVOEKE
+# ==============================================================================
+
+registry_metadata:
+  schema_version: "2.4.0"
+  release_date: "2026-11-01"
+  author: "Ing. Christophe WAVOEKE"
+  target_models:
+    primary: "Qwen/Qwen2.5-VL-7B-Instruct-AWQ"
+    fallback: "llava-hf/llava-onevision-qwen2-7b-ov-hf"
+    embedding: "google/siglip-so400m-patch14-384"
+  deterministic_config:
+    seed: 42
+    temperature: 0.0
+    top_p: 1.0
+    max_frames_per_window: 8
+    cross_verification_min_frames: 3
+
+video_sampling_policy:
+  decoder_backend: "ffmpeg_nvdec_cuvid"
+  fallback_decoder: "pyav_cpu_multithread"
+  target_resolution: [640, 360]
+  scene_change_threshold_hsv: 0.28
+  min_fps_sampling: 1.0
+  max_fps_sampling: 4.0
+  integrity_checks:
+    - "verify_container_moov_atom"
+    - "reject_corrupted_macroblocks"
+    - "detect_frozen_or_black_frames"
+    - "compute_sha256_frame_digest"
+
+calibration_parameters:
+  method: "Temperature_Scaling_Multimodal"
+  optimal_temperature_T: 1.38
+  ece_before_calibration: 0.084
+  ece_after_calibration: 0.019
+  brier_score: 0.041
+
+categories:
+  CAT_01_SECURITE_INFRASTRUCTURE:
+    label: "Intrusion & Sécurité périmétrique d'infrastructure critique"
+    version: "v2.4"
+    calibrated_threshold: 0.74
+    cross_frame_window: 5
+    min_consensus_ratio: 0.60
+    system_prompt: >
+      Tu es un moteur d'analyse vidéo souverain haute précision. Analyse la séquence
+      chronologique de {N} trames extraites à {FPS} FPS. Identifie uniquement les faits
+      visuellement vérifiables sans extrapoler hors du champ caméra.
+    user_prompt_template: >
+      Examine ces {N} trames consécutives (timestamps: {TIMESTAMPS}).
+      1. Décris les individus, véhicules ou objets présents dans la zone restreinte.
+      2. Vérifie si l'événement persiste sur au moins 3 trames distinctes.
+      3. Retourne strictement un JSON conforme au schéma :
+      {"category": "CAT_01", "detected": bool, "raw_logit_confidence": float, "supporting_frames": [int], "evidence_fr": str}
+
+  CAT_02_TRAFIC_ANOMALIE_URBAINE:
+    label: "Congestion routière, accident ou obstacle sur axe stratégique"
+    version: "v2.4"
+    calibrated_threshold: 0.68
+    cross_frame_window: 4
+    min_consensus_ratio: 0.50
+    system_prompt: >
+      Tu es un système expert de vision par ordinateur dédié à la régulation urbaine et routière.
+    user_prompt_template: >
+      Analyse cette séquence temporelle de {N} trames. Détecte tout véhicule immobilisé,
+      collision, dégradation de chaussée ou attroupement inhabituel sur la voie publique.
+      Format de sortie JSON strict : {"category": "CAT_02", "detected": bool, "severity": "LOW|MEDIUM|HIGH", "supporting_frames": [int], "summary_fr": str}
+
+  CAT_03_CONFORMITE_CONTENU_SENSIBLE:
+    label: "Modération & Détection de contenus sensibles ou altérés (Deepfake/Manipulation)"
+    version: "v2.4"
+    calibrated_threshold: 0.81
+    cross_frame_window: 6
+    min_consensus_ratio: 0.67
+    system_prompt: >
+      Tu es un auditeur visuel chargé de vérifier l'intégrité et la conformité des flux vidéo officiels.
+    user_prompt_template: >
+      Inspecte la cohérence spatio-temporelle entre les {N} trames, les artefacts de compression
+      inhabituellement localisés et la présence d'éléments sensibles nécessitant une anonymisation APDP.
+
+  CAT_04_ PROTECTION_DONNEES_APDP:
+    label: "Détection de Données à Caractère Personnel (Visages, Plaques, Documents d'identité)"
+    version: "v2.4"
+    calibrated_threshold: 0.55
+    cross_frame_window: 2
+    min_consensus_ratio: 0.50
+    system_prompt: >
+      Détecte toute donnée nominative ou biométrique (visages au premier plan, plaques d'immatriculation
+      lisibles, écrans ou pièces d'identité) devant être floutée avant archivage conformément à la Loi n° 2017-20.

@@ -1,0 +1,19 @@
+streamlit>=1.38.0
+numpy>=1.26.0
+pandas>=2.2.0
+plotly>=5.24.0
+scipy>=1.13.0
+scikit-learn>=1.5.0
+Pillow>=10.4.0
+PyYAML>=6.0.1
+opencv-python-headless>=4.10.0.84
+# Note: Pour le worker GPU de production (Dockerfile.gpu), décommenter :
+# torch>=2.4.0
+# torchvision>=0.19.0
+# vllm>=0.6.2
+# autoawq>=0.2.6
+# transformers>=4.45.0
+# accelerate>=0.34.0
+# decord>=0.6.0
+# fastapi>=0.115.0
+# uvicorn>=0.30.0
