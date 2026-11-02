@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 """
 PLATEFORME SOUVERAINE D'ANALYSE VIDÉO VLM & D'OPTIMISATION D'INFÉRENCE GPU (5 MODULES)
 Agence des Systèmes d'Information et du Numérique (ASIN — Cotonou, Bénin)
@@ -304,3 +304,4 @@ elif module_choice.startswith("M5"):
 
     df_search = semantic_video_search(user_query, target_lang=lang_sel)
     st.dataframe(df_search, use_container_width=True)
+

@@ -89,3 +89,4 @@ def semantic_video_search(query: str, target_lang: str = "Français") -> pd.Data
 
     df = pd.DataFrame(results).sort_values(by="Score Cosinus SigLIP", ascending=False).reset_index(drop=True)
     return df
+

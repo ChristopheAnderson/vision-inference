@@ -204,3 +204,4 @@ def compute_gpu_capacity_plan(
         "recommended_gpus_n_plus_1": recommended_gpus_ha,
         "estimated_power_kw": round((recommended_gpus_ha * gpu["tdp_watts"]) / 1000.0, 2),
     }
+

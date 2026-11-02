@@ -96,3 +96,4 @@ def apply_apdp_anonymization(
         "zero_raw_pii_persisted": True,
     }
     return out, audit_record
+

@@ -1,4 +1,4 @@
-# 👁️ ASIN Sovereign Vision-Language & GPU Inference Optimization Hub (5 Modules)
+﻿# 👁️ ASIN Sovereign Vision-Language & GPU Inference Optimization Hub (5 Modules)
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io)
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
@@ -81,3 +81,4 @@ Ouvrir directement `index.html` (Portail Interactif des 5 Modules) et `docs.html
 * **Email** : [christophewavoeke18@gmail.com](mailto:christophewavoeke18@gmail.com)
 * **GitHub** : [github.com/ChristopheAnderson](https://github.com/ChristopheAnderson)
 * **Portfolio** : [christopher-portofolio.vercel.app](https://christopher-portofolio.vercel.app)
+

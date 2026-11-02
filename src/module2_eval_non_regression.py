@@ -141,3 +141,4 @@ def run_non_regression_protocol(
     manifest_payload["reproducibility_sha256"] = manifest_hash
 
     return df, manifest_payload
+

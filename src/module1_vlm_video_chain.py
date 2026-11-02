@@ -174,3 +174,4 @@ def simulate_video_chain_execution(
         "optimal_temperature_T": temperature_T,
     }
     return df, summary
+

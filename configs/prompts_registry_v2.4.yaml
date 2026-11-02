@@ -91,3 +91,4 @@ categories:
     system_prompt: >
       Détecte toute donnée nominative ou biométrique (visages au premier plan, plaques d'immatriculation
       lisibles, écrans ou pièces d'identité) devant être floutée avant archivage conformément à la Loi n° 2017-20.
+

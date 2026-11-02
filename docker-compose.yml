@@ -53,3 +53,4 @@ services:
     volumes:
       - ./configs:/app/configs:ro
       - ./audit_logs:/app/audit_logs
+
