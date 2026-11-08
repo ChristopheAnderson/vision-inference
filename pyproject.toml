@@ -11,3 +11,18 @@ dependencies = [
 
 [tool.vercel]
 entrypoint = "app:app"
+
+[tool.pyrefly]
+search-path = ["src", "."]
+replace-imports-with-any = [
+    "fastapi",
+    "fastapi.*",
+    "uvicorn",
+    "streamlit",
+    "pandas",
+    "numpy",
+    "PIL",
+    "PIL.*",
+    "plotly",
+    "plotly.*",
+]

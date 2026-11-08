@@ -5,4 +5,7 @@ docker-compose.yml
 .git
 __pycache__
 *.pyc
-
+*.pyi
+src/fastapi
+src/PIL
+src/plotly
