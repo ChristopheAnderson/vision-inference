@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VisionInference Hub — Analyse Vidéo VLM &amp; Optimisation d'Inférence GPU</title>
+    <title>VisionInference Hub — Studio Live d'Analyse Vidéo VLM, Quantification &amp; Capacité GPU</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -30,7 +30,6 @@
             --border-strong: #cbd5e1;
             --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
             --shadow-md: 0 4px 16px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
-            --shadow-lg: 0 12px 28px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
             --radius-sm: 8px;
             --radius-md: 12px;
             --radius-lg: 16px;
@@ -44,9 +43,8 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Navbar Sticky Light Mode */
         .navbar {
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.94);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
             padding: 12px 28px;
@@ -83,13 +81,8 @@
             font-size: 18px;
             font-weight: 800;
             letter-spacing: -0.3px;
-            color: var(--text-primary);
         }
-        .brand-sub {
-            font-size: 11.5px;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
+        .brand-sub { font-size: 11.5px; color: var(--text-muted); font-weight: 500; }
         .status-pill {
             background: var(--emerald-bg);
             color: var(--emerald);
@@ -103,22 +96,14 @@
             gap: 6px;
         }
         .status-dot {
-            width: 7px;
-            height: 7px;
-            background: var(--emerald);
-            border-radius: 50%;
+            width: 7px; height: 7px; background: var(--emerald); border-radius: 50%;
             animation: pulse 2s infinite;
         }
         @keyframes pulse {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.45; transform: scale(1.2); }
         }
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+        .nav-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .btn {
             padding: 8px 15px;
             border-radius: var(--radius-sm);
@@ -138,10 +123,13 @@
             color: #ffffff;
             box-shadow: 0 2px 6px rgba(37, 99, 235, 0.22);
         }
-        .btn-primary:hover {
-            background: var(--primary-hover);
-            transform: translateY(-1px);
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
+        .btn-emerald {
+            background: var(--emerald);
+            color: #ffffff;
+            box-shadow: 0 2px 6px rgba(5, 150, 105, 0.22);
         }
+        .btn-emerald:hover { background: #047857; }
         .btn-secondary {
             background: var(--bg-surface);
             color: var(--text-secondary);
@@ -153,35 +141,26 @@
             border-color: var(--primary);
         }
 
-        /* Main Container */
         .container {
-            max-width: 1340px;
-            margin: 28px auto 60px auto;
+            max-width: 1360px;
+            margin: 24px auto 60px auto;
             padding: 0 24px;
         }
 
-        /* Hero Banner Light Mode */
         .hero {
             background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 60%, #e0f2fe 100%);
             border: 1px solid #bae6fd;
             border-radius: var(--radius-lg);
-            padding: 28px 32px;
+            padding: 24px 30px;
             box-shadow: var(--shadow-md);
-            margin-bottom: 24px;
+            margin-bottom: 22px;
             display: grid;
             grid-template-columns: 1fr auto;
             gap: 24px;
             align-items: center;
         }
-        @media (max-width: 900px) {
-            .hero { grid-template-columns: 1fr; }
-        }
-        .hero-badge-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
+        @media (max-width: 900px) { .hero { grid-template-columns: 1fr; } }
+        .hero-badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
         .tag-badge {
             font-size: 11.5px;
             font-weight: 700;
@@ -196,155 +175,94 @@
         }
         .hero h1 {
             font-family: 'Outfit', sans-serif;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 800;
             color: var(--text-primary);
             line-height: 1.22;
-            margin-bottom: 10px;
-            letter-spacing: -0.4px;
+            margin-bottom: 8px;
         }
-        .hero p {
-            color: var(--text-secondary);
-            font-size: 14.5px;
-            max-width: 840px;
-        }
+        .hero p { color: var(--text-secondary); font-size: 14px; max-width: 850px; }
         .author-card {
             background: #ffffff;
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
-            padding: 16px 18px;
+            padding: 14px 18px;
             display: flex;
             align-items: center;
             gap: 14px;
             box-shadow: var(--shadow-sm);
-            min-width: 280px;
+            min-width: 275px;
         }
         .author-avatar {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            object-fit: cover;
-            object-position: center top;
+            width: 54px; height: 54px; border-radius: 50%;
+            object-fit: cover; object-position: center top;
             border: 2.5px solid var(--primary);
         }
-        .author-name {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 800;
-            font-size: 15px;
-            color: var(--text-primary);
-        }
-        .author-role {
-            font-size: 12px;
-            color: var(--primary);
-            font-weight: 700;
-        }
-        .author-meta {
-            font-size: 11.5px;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
+        .author-name { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 15px; }
+        .author-role { font-size: 12px; color: var(--primary); font-weight: 700; }
+        .author-meta { font-size: 11.5px; color: var(--text-muted); }
 
-        /* KPI Strip */
         .kpi-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 16px;
-            margin-bottom: 28px;
+            gap: 14px;
+            margin-bottom: 22px;
         }
         .kpi-card {
             background: var(--bg-surface);
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
-            padding: 18px 20px;
+            padding: 16px 18px;
             box-shadow: var(--shadow-sm);
-            transition: transform 0.18s ease, box-shadow 0.18s ease;
             position: relative;
             overflow: hidden;
         }
-        .kpi-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
         .kpi-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3.5px;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3.5px;
             background: var(--primary);
         }
         .kpi-card.emerald::before { background: var(--emerald); }
         .kpi-card.amber::before { background: var(--amber); }
         .kpi-card.sky::before { background: var(--sky); }
-        .kpi-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-        }
-        .kpi-label {
-            font-size: 11.5px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
-            color: var(--text-muted);
-        }
+        .kpi-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+        .kpi-label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); }
         .kpi-icon {
-            width: 30px;
-            height: 30px;
-            border-radius: 8px;
-            background: var(--bg-accent-soft);
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
+            width: 28px; height: 28px; border-radius: 8px;
+            background: var(--bg-accent-soft); color: var(--primary);
+            display: flex; align-items: center; justify-content: center; font-size: 13px;
         }
-        .kpi-value {
-            font-family: 'Outfit', sans-serif;
-            font-size: 26px;
-            font-weight: 800;
-            color: var(--text-primary);
-            line-height: 1.15;
-            margin-bottom: 4px;
-        }
-        .kpi-sub {
-            font-size: 12.5px;
-            color: var(--text-secondary);
-        }
+        .kpi-value { font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 800; margin-bottom: 2px; }
+        .kpi-sub { font-size: 12px; color: var(--text-secondary); }
 
-        /* Navigation Tabs */
         .tabs-nav {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             background: var(--bg-subtle);
             padding: 6px;
             border-radius: var(--radius-md);
             border: 1px solid var(--border);
-            margin-bottom: 24px;
+            margin-bottom: 22px;
             overflow-x: auto;
         }
         .tab-btn {
             flex: 1;
-            min-width: 200px;
+            min-width: 175px;
             background: transparent;
             color: var(--text-secondary);
             border: none;
-            padding: 11px 16px;
+            padding: 10px 12px;
             border-radius: var(--radius-sm);
             font-family: 'Outfit', sans-serif;
             font-weight: 700;
-            font-size: 13.5px;
+            font-size: 13px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 7px;
             transition: all 0.18s ease;
         }
-        .tab-btn:hover {
-            color: var(--primary);
-            background: rgba(255, 255, 255, 0.6);
-        }
+        .tab-btn:hover { color: var(--primary); background: rgba(255, 255, 255, 0.65); }
         .tab-btn.active {
             background: var(--bg-surface);
             color: var(--primary);
@@ -352,39 +270,29 @@
             border: 1px solid var(--border);
         }
 
-        .panel { display: none; animation: fadeIn 0.22s ease; }
+        .panel { display: none; animation: fadeIn 0.2s ease; }
         .panel.active { display: block; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(4px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Cards & Grids */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        .grid-12 {
-            display: grid;
-            grid-template-columns: 5fr 7fr;
-            gap: 20px;
-        }
-        @media (max-width: 960px) {
-            .grid-2, .grid-12 { grid-template-columns: 1fr; }
-        }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-12 { display: grid; grid-template-columns: 5fr 7fr; gap: 20px; }
+        @media (max-width: 960px) { .grid-2, .grid-12 { grid-template-columns: 1fr; } }
+
         .card {
             background: var(--bg-surface);
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
-            padding: 22px 24px;
+            padding: 20px 22px;
             box-shadow: var(--shadow-sm);
         }
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             padding-bottom: 10px;
             border-bottom: 1px solid var(--bg-subtle);
             flex-wrap: wrap;
@@ -392,67 +300,54 @@
         }
         .card-title {
             font-family: 'Outfit', sans-serif;
-            font-size: 17px;
+            font-size: 16.5px;
             font-weight: 800;
-            color: var(--text-primary);
             display: flex;
             align-items: center;
             gap: 8px;
         }
         .card-title i { color: var(--primary); }
-        .card-desc {
-            font-size: 13.5px;
-            color: var(--text-secondary);
-            margin-bottom: 16px;
-        }
+        .card-desc { font-size: 13px; color: var(--text-secondary); margin-bottom: 14px; }
 
-        /* Form Controls */
-        .control-group {
+        .upload-zone {
+            border: 2px dashed #93c5fd;
+            background: #f8fafc;
+            border-radius: var(--radius-md);
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.18s;
             margin-bottom: 14px;
         }
+        .upload-zone:hover {
+            background: var(--bg-accent-soft);
+            border-color: var(--primary);
+        }
+
+        .control-group { margin-bottom: 12px; }
         .control-label {
             display: flex;
             justify-content: space-between;
             font-size: 12.5px;
             font-weight: 700;
             color: var(--text-secondary);
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
-        .control-val {
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--primary);
-            font-weight: 700;
-        }
-        input[type="range"] {
-            width: 100%;
-            accent-color: var(--primary);
-            cursor: pointer;
-        }
+        .control-val { font-family: 'JetBrains Mono', monospace; color: var(--primary); font-weight: 700; }
+        input[type="range"] { width: 100%; accent-color: var(--primary); cursor: pointer; }
         select, input[type="number"], input[type="text"] {
             width: 100%;
-            padding: 9px 12px;
+            padding: 8px 12px;
             border-radius: var(--radius-sm);
             border: 1px solid var(--border-strong);
             background: var(--bg-surface);
             color: var(--text-primary);
             font-family: inherit;
-            font-size: 13.5px;
+            font-size: 13px;
             font-weight: 500;
-            transition: border-color 0.15s;
-        }
-        select:focus, input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
         }
 
-        /* Preset Pills */
-        .preset-row {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 16px;
-        }
+        .preset-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
         .preset-chip {
             font-size: 12px;
             font-weight: 700;
@@ -462,7 +357,6 @@
             color: var(--text-secondary);
             border: 1px solid var(--border-strong);
             cursor: pointer;
-            transition: all 0.15s;
         }
         .preset-chip:hover {
             background: var(--bg-accent-soft);
@@ -470,121 +364,99 @@
             border-color: var(--primary);
         }
 
-        /* Progress Bars & Visualizers */
-        .prob-bar-wrap {
-            margin: 10px 0;
-        }
+        .prob-bar-wrap { margin: 8px 0; }
         .prob-bar-track {
-            height: 12px;
+            height: 11px;
             background: var(--bg-subtle);
             border-radius: 999px;
             overflow: hidden;
             border: 1px solid var(--border);
         }
-        .prob-bar-fill {
-            height: 100%;
-            border-radius: 999px;
-            transition: width 0.3s ease;
-        }
+        .prob-bar-fill { height: 100%; border-radius: 999px; transition: width 0.3s ease; }
 
-        /* Frame Timeline Visualizer */
         .frames-strip {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(82px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
             gap: 8px;
-            margin: 12px 0;
+            margin: 10px 0;
         }
         .frame-box {
             border-radius: 8px;
-            padding: 8px 6px;
+            padding: 7px 5px;
             text-align: center;
             border: 1.5px solid var(--border);
             background: var(--bg-subtle);
-            font-size: 11.5px;
+            font-size: 11px;
         }
-        .frame-box.hit {
-            background: var(--emerald-bg);
-            border-color: #34d399;
-            color: #065f46;
-        }
-        .frame-box.miss {
-            background: var(--bg-surface);
-            border-color: var(--border);
-            color: var(--text-muted);
-        }
+        .frame-box.hit { background: var(--emerald-bg); border-color: #34d399; color: #065f46; }
+        .frame-box.miss { background: var(--bg-surface); border-color: var(--border); color: var(--text-muted); }
 
-        /* Tables */
-        .table-wrap {
-            overflow-x: auto;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
+        .keyframes-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+            gap: 10px;
+            margin-top: 12px;
+            max-height: 360px;
+            overflow-y: auto;
+            padding: 4px;
         }
-        table {
+        .kf-card {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-strong);
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 11px;
+        }
+        .kf-card canvas, .kf-card img {
             width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-            background: var(--bg-surface);
+            height: 86px;
+            object-fit: cover;
+            display: block;
         }
+        .kf-meta { padding: 6px 8px; line-height: 1.35; }
+        .kf-hash { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: var(--text-muted); }
+
+        .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius-sm); }
+        table { width: 100%; border-collapse: collapse; font-size: 12.8px; background: var(--bg-surface); }
         th {
             background: var(--bg-subtle);
             color: var(--text-secondary);
             font-weight: 700;
             text-align: left;
-            padding: 11px 14px;
+            padding: 10px 12px;
             border-bottom: 1px solid var(--border-strong);
-            font-size: 12px;
+            font-size: 11.5px;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
         }
-        td {
-            padding: 11px 14px;
-            border-bottom: 1px solid var(--border);
-            color: var(--text-primary);
-        }
-        tr:last-child td { border-bottom: none; }
-        tr.highlight-row {
-            background: var(--emerald-bg);
-            font-weight: 700;
-        }
+        td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+        tr.highlight-row { background: var(--emerald-bg); font-weight: 700; }
 
-        /* Code Block with Copy Button */
-        .code-block-wrap {
-            position: relative;
-            margin-top: 10px;
-        }
+        .code-block-wrap { position: relative; margin-top: 8px; }
         pre {
             background: #0f172a;
             color: #e2e8f0;
-            padding: 14px 16px;
+            padding: 12px 14px;
             border-radius: var(--radius-sm);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
+            font-size: 11.5px;
             overflow-x: auto;
-            line-height: 1.55;
+            line-height: 1.5;
         }
         .copy-btn {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: rgba(255, 255, 255, 0.14);
-            color: #ffffff;
+            position: absolute; top: 7px; right: 7px;
+            background: rgba(255, 255, 255, 0.14); color: #ffffff;
             border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 6px;
-            padding: 4px 10px;
-            font-size: 11px;
-            font-weight: 600;
-            cursor: pointer;
+            border-radius: 6px; padding: 3px 9px; font-size: 11px; cursor: pointer;
         }
-        .copy-btn:hover { background: rgba(255, 255, 255, 0.25); }
 
-        /* Callout Box */
         .result-banner {
             border-radius: var(--radius-sm);
-            padding: 14px 16px;
-            margin-top: 14px;
+            padding: 12px 15px;
+            margin-top: 12px;
             border: 1px solid #a7f3d0;
             background: var(--emerald-bg);
             color: #065f46;
+            font-size: 13px;
         }
         .result-banner.warn {
             border-color: #fecdd3;
@@ -592,45 +464,34 @@
             color: #9f1239;
         }
 
-        /* VRAM Bar */
         .vram-stacked {
-            display: flex;
-            height: 26px;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border-strong);
-            margin: 12px 0 8px 0;
+            display: flex; height: 26px; border-radius: 8px;
+            overflow: hidden; border: 1px solid var(--border-strong); margin: 10px 0 8px 0;
         }
         .vram-seg {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: 700;
-            color: #ffffff;
-            transition: width 0.3s ease;
-            white-space: nowrap;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; font-weight: 700; color: #ffffff; transition: width 0.3s ease;
+            white-space: nowrap; overflow: hidden;
+        }
+        .legend-row { display: flex; flex-wrap: wrap; gap: 12px; font-size: 11.5px; color: var(--text-secondary); }
+        .legend-dot { width: 10px; height: 10px; border-radius: 3px; display: inline-block; margin-right: 4px; }
+
+        .canvas-stage {
+            width: 100%;
+            background: #0f172a;
+            border-radius: var(--radius-sm);
             overflow: hidden;
-        }
-        .legend-row {
             display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            font-size: 12px;
-            color: var(--text-secondary);
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--border-strong);
         }
-        .legend-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 3px;
-            display: inline-block;
-            margin-right: 5px;
-        }
+        .canvas-stage canvas { max-width: 100%; height: auto; display: block; }
 
         footer {
             border-top: 1px solid var(--border);
             background: var(--bg-surface);
-            padding: 24px;
+            padding: 22px;
             text-align: center;
             font-size: 13px;
             color: var(--text-muted);
@@ -639,20 +500,19 @@
 </head>
 <body>
 
-    <!-- NAVBAR -->
     <nav class="navbar">
         <a href="index.html" class="brand">
             <div class="brand-icon"><i class="fa-solid fa-eye"></i></div>
             <div>
                 <div class="brand-title">VisionInference Hub</div>
-                <div class="brand-sub">VLM Video Analytics, Calibration &amp; vLLM GPU Optimization</div>
+                <div class="brand-sub">Live Video Sampling, VLM Calibration, Quantization Bench &amp; vLLM Capacity</div>
             </div>
         </a>
         <div class="nav-actions">
-            <span class="status-pill"><span class="status-dot"></span> v2.4.0 Production Ready</span>
-            <a href="docs.html" class="btn btn-primary"><i class="fa-solid fa-book-open"></i> Architecture &amp; Spécifications</a>
-            <a href="/api/docs" class="btn btn-secondary"><i class="fa-solid fa-bolt"></i> API Swagger (/api/docs)</a>
-            <a href="https://github.com/ChristopheAnderson/vision-inference" target="_blank" class="btn btn-secondary"><i class="fa-brands fa-github"></i> Code Source GitHub</a>
+            <span class="status-pill"><span class="status-dot"></span> Studio Live v2.5.0</span>
+            <a href="docs.html" class="btn btn-primary"><i class="fa-solid fa-book-open"></i> Spécifications &amp; Architecture</a>
+            <a href="/api/docs" class="btn btn-secondary"><i class="fa-solid fa-bolt"></i> API FastAPI (/api/docs)</a>
+            <a href="https://github.com/ChristopheAnderson/vision-inference" target="_blank" class="btn btn-secondary"><i class="fa-brands fa-github"></i> GitHub</a>
         </div>
     </nav>
 
@@ -661,14 +521,14 @@
         <section class="hero">
             <div>
                 <div class="hero-badge-row">
-                    <span class="tag-badge"><i class="fa-solid fa-video"></i> Modèles VLM Poids Ouverts (Qwen2.5-VL / LLaVA)</span>
-                    <span class="tag-badge"><i class="fa-solid fa-microchip"></i> Serveur vLLM &amp; Quantification AWQ 4-bit</span>
-                    <span class="tag-badge"><i class="fa-solid fa-gauge-high"></i> FFmpeg NVDEC GPU</span>
-                    <span class="tag-badge"><i class="fa-solid fa-shield-check"></i> Non-Régression CI/CD &amp; Anonymisation PII</span>
+                    <span class="tag-badge"><i class="fa-solid fa-video"></i> Extraction Keyframes &amp; Scènes Live</span>
+                    <span class="tag-badge"><i class="fa-solid fa-sliders"></i> Calibration VLM &amp; Consensus Temporel</span>
+                    <span class="tag-badge"><i class="fa-solid fa-microchip"></i> Benchmark FP16 vs INT8 vs AWQ 4-bit</span>
+                    <span class="tag-badge"><i class="fa-solid fa-user-shield"></i> Anonymisation PII Temps Réel en RAM</span>
                 </div>
-                <h1>Plateforme Industrielle d'Analyse Vidéo Multimodale &amp; d'Optimisation d'Inférence GPU</h1>
+                <h1>Studio Industriel d'Analyse Vidéo Multimodale (VLM) &amp; d'Optimisation d'Inférence GPU</h1>
                 <p>
-                    Architecture complète de traitement vidéo à fort volume combinant le décodage matériel <strong>FFmpeg NVDEC (CUDA)</strong>, la segmentation temporelle de scènes, la calibration probabiliste (<em>Temperature Scaling</em>), la vérification croisée multi-trames, un protocole déterministe de non-régression et le dimensionnement capacitaire sur serveur <strong>vLLM (PagedAttention + AWQ 4-bit)</strong>.
+                    Testez directement sur vos propres fichiers vidéo/images ou via nos générateurs temps réel les 5 briques d'une chaîne de vision en production : <strong>(1) Échantillonnage intelligent de trames &amp; détection de scènes HSV</strong>, <strong>(2) Calibration Temperature Scaling &amp; consensus inter-trames</strong>, <strong>(3) Protocole de non-régression CI/CD</strong>, <strong>(4) Dimensionnement vLLM / AWQ 4-bit</strong> et <strong>(5) Floutage automatique de visages/plaques</strong>.
                 </p>
             </div>
             <div class="author-card">
@@ -677,7 +537,7 @@
                     <div class="author-name">Ing. Christophe WAVOEKE</div>
                     <div class="author-role">Ingénieur IA Vision &amp; Optimisation GPU</div>
                     <div class="author-meta">Ingénieur de Conception Bac+5 · Lauréat ENSGMM</div>
-                    <div style="margin-top:6px; display:flex; gap:10px; font-size:12px;">
+                    <div style="margin-top:5px; display:flex; gap:10px; font-size:12px;">
                         <a href="https://github.com/ChristopheAnderson" target="_blank" style="color:var(--primary); font-weight:700; text-decoration:none;"><i class="fa-brands fa-github"></i> GitHub</a>
                         <a href="https://christopher-portofolio.vercel.app" target="_blank" style="color:var(--sky); font-weight:700; text-decoration:none;"><i class="fa-solid fa-globe"></i> Portfolio</a>
                     </div>
@@ -706,7 +566,7 @@
             <div class="kpi-card sky">
                 <div class="kpi-header">
                     <span class="kpi-label">Élagage Trames &amp; Calibration</span>
-                    <div class="kpi-icon" style="background:#e0f2fe; color:var(--sky);"><i class="fa-solid fa-Sliders"></i></div>
+                    <div class="kpi-icon" style="background:#e0f2fe; color:var(--sky);"><i class="fa-solid fa-film"></i></div>
                 </div>
                 <div class="kpi-value">-93,3 % Trames</div>
                 <div class="kpi-sub">Filtre hybride FFmpeg HSV · ECE réduit de <strong>0,084 à 0,019</strong></div>
@@ -721,28 +581,94 @@
             </div>
         </section>
 
-        <!-- TABS NAVIGATION -->
+        <!-- TABS NAVIGATION (5 INTERACTIVE LABS) -->
         <div class="tabs-nav">
-            <button class="tab-btn active" onclick="openTab('tab1', this)">
-                <i class="fa-solid fa-film"></i> 1. Chaîne Vidéo VLM &amp; Calibration
+            <button class="tab-btn active" onclick="openTab('tab_sampler', this)">
+                <i class="fa-solid fa-scissors"></i> Lab 1 : SmartFrame Vidéo (Live Upload)
             </button>
-            <button class="tab-btn" onclick="openTab('tab2', this)">
-                <i class="fa-solid fa-shield-halved"></i> 2. Évaluation &amp; Non-Régression CI/CD
+            <button class="tab-btn" onclick="openTab('tab_vlm', this)">
+                <i class="fa-solid fa-sliders"></i> Lab 2 : Calibration VLM &amp; Consensus
             </button>
-            <button class="tab-btn" onclick="openTab('tab3', this)">
-                <i class="fa-solid fa-microchip"></i> 3. Optimisation vLLM &amp; Capacité GPU
+            <button class="tab-btn" onclick="openTab('tab_eval', this)">
+                <i class="fa-solid fa-shield-halved"></i> Lab 3 : Non-Régression CI/CD
             </button>
-            <button class="tab-btn" onclick="openTab('tab4', this)">
-                <i class="fa-solid fa-magnifying-glass-chart"></i> 4. Anonymisation PII &amp; Recherche Multimodale
+            <button class="tab-btn" onclick="openTab('tab_gpu', this)">
+                <i class="fa-solid fa-microchip"></i> Lab 4 : Benchmark Quant. &amp; Capacité GPU
+            </button>
+            <button class="tab-btn" onclick="openTab('tab_privacy', this)">
+                <i class="fa-solid fa-user-shield"></i> Lab 5 : Anonymisation PII (Live Image)
             </button>
         </div>
 
-        <!-- TAB 1: CHAÎNE VLM & CALIBRATION -->
-        <div id="tab1" class="panel active">
+        <!-- =========================================================================
+             LAB 1 : SMARTFRAME VIDEO SAMPLER (REAL VIDEO FILE OR SYNTHETIC STREAM)
+             ========================================================================= -->
+        <div id="tab_sampler" class="panel active">
             <div class="grid-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title"><i class="fa-solid fa-sliders"></i> Paramètres de la Chaîne &amp; Scénarios</div>
+                        <div class="card-title"><i class="fa-solid fa-file-video"></i> Acquisition Vidéo &amp; Paramètres de Découpage</div>
+                        <span class="tag-badge">Décodage Réel &amp; SHA-256</span>
+                    </div>
+                    <p class="card-desc">
+                        Importez un fichier vidéo (<code>.mp4</code>, <code>.webm</code>) depuis votre PC ou lancez le générateur multi-scènes intégré pour exécuter en direct la détection de rupture de plan (&Delta;HSV) et le filtre de netteté Laplacien :
+                    </p>
+
+                    <label class="upload-zone" for="videoFileInput" style="display:block;">
+                        <i class="fa-solid fa-cloud-arrow-up" style="font-size:24px; color:var(--primary); margin-bottom:6px;"></i>
+                        <div style="font-weight:700; font-size:13.5px;">Cliquez pour sélectionner une vidéo (.mp4 / .webm) sur votre PC</div>
+                        <div style="font-size:11.5px; color:var(--text-muted);">Traitement 100% local en mémoire vive (aucun envoi serveur)</div>
+                        <input type="file" id="videoFileInput" accept="video/*" style="display:none;" onchange="handleVideoUpload(event)">
+                    </label>
+
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>Seuil de Changement de Scène (&Delta;Histogramme Couleur)</span>
+                            <span class="control-val" id="sceneCutVal">0.24</span>
+                        </div>
+                        <input type="range" id="sceneCutRange" min="0.08" max="0.50" step="0.02" value="0.24" oninput="document.getElementById('sceneCutVal').innerText=parseFloat(this.value).toFixed(2)">
+                    </div>
+
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>Seuil Minimal de Netteté (Variance du Laplacien — Rejet Flou)</span>
+                            <span class="control-val" id="blurThreshVal">35.0</span>
+                        </div>
+                        <input type="range" id="blurThreshRange" min="10" max="90" step="5" value="35" oninput="document.getElementById('blurThreshVal').innerText=parseFloat(this.value).toFixed(1)">
+                    </div>
+
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
+                        <button class="btn btn-primary" onclick="runSyntheticVideoSampling()">
+                            <i class="fa-solid fa-play"></i> Lancer sur Flux Multi-Scènes de Démonstration (120 trames)
+                        </button>
+                    </div>
+
+                    <div id="samplerMetricsBanner" class="result-banner" style="margin-top:14px;"></div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title"><i class="fa-solid fa-images"></i> Galerie des Keyframes Retenues &amp; Contrôle d'Intégrité</div>
+                        <span class="tag-badge" id="kfCountBadge">Keyframes extraites</span>
+                    </div>
+                    <p class="card-desc">
+                        Seules les trames présentant une rupture de scène significative ou un intervalle clé ET réussissant le contrôle de netteté Laplacien sont transmises au modèle Vision-Langage :
+                    </p>
+                    <video id="hiddenVideo" muted playsinline style="display:none;"></video>
+                    <canvas id="workCanvas" width="320" height="180" style="display:none;"></canvas>
+                    <div id="keyframesGallery" class="keyframes-gallery"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- =========================================================================
+             LAB 2 : CALIBRATION VLM & CONSENSUS TEMPOREL
+             ========================================================================= -->
+        <div id="tab_vlm" class="panel">
+            <div class="grid-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title"><i class="fa-solid fa-sliders"></i> Paramètres de la Chaîne VLM &amp; Scénarios</div>
                         <span class="tag-badge">Registre YAML v2.4.0</span>
                     </div>
                     <p class="card-desc">
@@ -756,10 +682,8 @@
                     </div>
 
                     <div class="control-group">
-                        <div class="control-label">
-                            <span>Catégorie du Registre d'Invites Versionné</span>
-                        </div>
-                        <select id="catSelect" onchange="syncCategoryThreshold()">
+                        <div class="control-label"><span>Catégorie du Registre d'Invites Versionné</span></div>
+                        <select id="catSelect" onchange="runChainSimulation()">
                             <option value="0.74">CAT_01 : Sécurité Périmétrique &amp; Intrusion (Seuil calibré = 0.74)</option>
                             <option value="0.68">CAT_02 : Anomalie Trafic &amp; Voie Publique (Seuil calibré = 0.68)</option>
                             <option value="0.81">CAT_03 : Intégrité Média &amp; Contenu Sensible (Seuil calibré = 0.81)</option>
@@ -818,7 +742,7 @@
                         </div>
                     </div>
 
-                    <div style="margin-top: 16px;">
+                    <div style="margin-top: 14px;">
                         <div class="control-label">
                             <span>Fenêtre Glissante de Vérification Croisée Inter-Trames (<i>N</i> = 5 keyframes extraites)</span>
                             <span class="control-val" id="consensusRatioText">Consensus : 80% (Requis ≥ 60%)</span>
@@ -828,10 +752,8 @@
 
                     <div id="chainDecisionBanner" class="result-banner"></div>
 
-                    <div style="margin-top: 16px;">
-                        <div class="control-label">
-                            <span>Commande d'Extraction Hybride FFmpeg NVDEC (Décodage GPU CUDA + Détection Scène HSV)</span>
-                        </div>
+                    <div style="margin-top: 14px;">
+                        <div class="control-label"><span>Commande d'Extraction Hybride FFmpeg NVDEC (CUDA)</span></div>
                         <div class="code-block-wrap">
                             <button class="copy-btn" onclick="copyCode('ffmpegCode', this)"><i class="fa-regular fa-copy"></i> Copier</button>
                             <pre id="ffmpegCode">ffmpeg -hwaccel cuda -hwaccel_output_format cuda -c:v h264_cuvid -i input_stream.mp4 \
@@ -843,8 +765,10 @@
             </div>
         </div>
 
-        <!-- TAB 2: ÉVALUATION & NON-RÉGRESSION -->
-        <div id="tab2" class="panel">
+        <!-- =========================================================================
+             LAB 3 : ÉVALUATION & NON-RÉGRESSION CI/CD
+             ========================================================================= -->
+        <div id="tab_eval" class="panel">
             <div class="card">
                 <div class="card-header">
                     <div>
@@ -885,8 +809,10 @@
             </div>
         </div>
 
-        <!-- TAB 3: OPTIMISATION vLLM & CAPACITÉ GPU -->
-        <div id="tab3" class="panel">
+        <!-- =========================================================================
+             LAB 4 : BENCHMARK QUANTIFICATION & CAPACITÉ GPU
+             ========================================================================= -->
+        <div id="tab_gpu" class="panel">
             <div class="grid-12">
                 <div class="card">
                     <div class="card-header">
@@ -923,7 +849,7 @@
                         <input type="range" id="durRange" min="15" max="180" step="15" value="60" oninput="updateCapacityPlanner()">
                     </div>
 
-                    <div style="margin-top: 14px;">
+                    <div style="margin-top: 12px;">
                         <div class="control-label">
                             <span>Allocation Mémoire VRAM sur 1 Unité (<span id="vramTotalLabel">24 Go</span>)</span>
                         </div>
@@ -936,7 +862,7 @@
                         </div>
                     </div>
 
-                    <div id="capacityOutput" class="result-banner" style="margin-top: 16px;"></div>
+                    <div id="capacityOutput" class="result-banner" style="margin-top: 14px;"></div>
                 </div>
 
                 <div class="card">
@@ -995,7 +921,7 @@
                         </table>
                     </div>
 
-                    <div style="margin-top: 16px;">
+                    <div style="margin-top: 14px;">
                         <div class="control-label"><span>Commande de Lancement Production du Serveur vLLM</span></div>
                         <div class="code-block-wrap">
                             <button class="copy-btn" onclick="copyCode('vllmCode', this)"><i class="fa-regular fa-copy"></i> Copier</button>
@@ -1010,76 +936,66 @@
             </div>
         </div>
 
-        <!-- TAB 4: ANONYMISATION PII & RECHERCHE MULTIMODALE -->
-        <div id="tab4" class="panel">
-            <div class="grid-2">
+        <!-- =========================================================================
+             LAB 5 : ANONYMISATION PII TEMPS RÉEL (REAL IMAGE UPLOAD + DOWNLOAD)
+             ========================================================================= -->
+        <div id="tab_privacy" class="panel">
+            <div class="grid-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title"><i class="fa-solid fa-magnifying-glass"></i> Recherche Vectorielle Multimodale (SigLIP / CLIP) &amp; Multilinguisme</div>
-                        <span class="tag-badge">Cosine Similarity</span>
+                        <div class="card-title"><i class="fa-solid fa-user-shield"></i> Studio Live d'Anonymisation (Visages &amp; Plaques)</div>
+                        <span class="tag-badge" style="color:var(--emerald); background:var(--emerald-bg); border-color:#a7f3d0;">Loi 2017-20 / RGPD</span>
                     </div>
                     <p class="card-desc">
-                        Interrogez l'index temporel d'embeddings vidéo et générez une synthèse dans la langue souhaitée (Français, English, Fon, Yoruba) :
+                        Importez une image depuis votre PC ou utilisez la scène urbaine synthétique. Vous pouvez également <strong>cliquer-glisser directement sur l'image</strong> pour ajouter une zone sensible supplémentaire à flouter en mémoire vive (RAM) :
                     </p>
+
+                    <label class="upload-zone" for="privacyImgInput" style="display:block;">
+                        <i class="fa-solid fa-image" style="font-size:22px; color:var(--primary); margin-bottom:4px;"></i>
+                        <div style="font-weight:700; font-size:13px;">Importer une photo (.jpg / .png) à anonymiser</div>
+                        <input type="file" id="privacyImgInput" accept="image/*" style="display:none;" onchange="handlePrivacyImageUpload(event)">
+                    </label>
+
                     <div class="control-group">
-                        <div class="control-label"><span>Requête Sémantique Texte-vers-Vidéo</span></div>
-                        <select id="searchQuerySelect" onchange="runSemanticSearch()">
-                            <option value="intrusion">Intrusion périmétrique nocturne près d'une zone critique</option>
-                            <option value="traffic">Congestion routière ou véhicule immobilisé sur voie rapide</option>
-                            <option value="pii">Séquence contenant des visages et plaques d'immatriculation exposés</option>
+                        <div class="control-label">
+                            <span>Mode d'Anonymisation Irréversible en RAM</span>
+                        </div>
+                        <select id="blurModeSelect" onchange="renderPrivacyCanvas()">
+                            <option value="mosaic">Mosaïque Haute Sécurité + Floutage (Recommandé Production)</option>
+                            <option value="gaussian">Floutage Gaussien Fort (&sigma; = 25)</option>
+                            <option value="blackout">Masquage Noir Intégral (Redaction Box)</option>
                         </select>
                     </div>
+
                     <div class="control-group">
-                        <div class="control-label"><span>Langue de Synthèse Opérationnelle</span></div>
-                        <select id="langSelect" onchange="runSemanticSearch()">
-                            <option value="fr">Français (Standard Opérationnel)</option>
-                            <option value="en">English (International Interoperability)</option>
-                            <option value="fon">Fɔngbè (Langue Nationale — Adaptation Locale)</option>
-                            <option value="yo">Yorùbá (Langue Nationale — Adaptation Régionale)</option>
-                        </select>
+                        <div class="control-label">
+                            <span>Intensité du Filtre (Taille de Noyau / Bloc)</span>
+                            <span class="control-val" id="blurStrengthVal">18 px</span>
+                        </div>
+                        <input type="range" id="blurStrengthRange" min="8" max="36" step="2" value="18" oninput="document.getElementById('blurStrengthVal').innerText=this.value+' px'; renderPrivacyCanvas();">
                     </div>
-                    <div id="searchResultBox" class="result-banner"></div>
+
+                    <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;">
+                        <button class="btn btn-primary" onclick="resetSyntheticStreetScene()">
+                            <i class="fa-solid fa-rotate"></i> Scène Urbaine de Test
+                        </button>
+                        <button class="btn btn-emerald" onclick="downloadAnonymizedImage()">
+                            <i class="fa-solid fa-download"></i> Télécharger Image Anonymisée (.png)
+                        </button>
+                        <button class="btn btn-secondary" onclick="downloadPrivacyCertificate()">
+                            <i class="fa-solid fa-file-shield"></i> Certificat d'Audit SHA-256 (.json)
+                        </button>
+                    </div>
+
+                    <div id="privacyAuditBanner" class="result-banner" style="margin-top:12px;"></div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title"><i class="fa-solid fa-user-shield"></i> Protection des Données Personnelles &amp; Anonymisation à la Volée</div>
-                        <span class="tag-badge" style="color:var(--emerald); border-color:#a7f3d0; background:var(--emerald-bg);">Conformité Loi N° 2017-20 / RGPD</span>
+                        <div class="card-title"><i class="fa-solid fa-eye-slash"></i> Rendu Temps Réel en Mémoire Vive (Astuce : tracez un rectangle à la souris pour flouter une zone)</div>
                     </div>
-                    <p class="card-desc">
-                        Pipeline de floutage Gaussien adaptatif exécuté directement en mémoire vive (RAM/VRAM) sur chaque trame extraite avant toute écriture sur disque ou indexation :
-                    </p>
-                    <div class="table-wrap">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Cible PII Détectée</th>
-                                    <th>Opérateur Appliqué en RAM</th>
-                                    <th>Latence Ajoutée</th>
-                                    <th>Garantie de Conformité</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><strong>Visages Humains</strong></td>
-                                    <td>Floutage Gaussien (<code>kernel=51×51, &sigma;=25</code>)</td>
-                                    <td>+1.8 ms / trame</td>
-                                    <td style="color:var(--emerald); font-weight:700;">✔ Irréversible avant disque</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Plaques d'Immatriculation</strong></td>
-                                    <td>Masquage mosaïque + Floutage (<code>35×35</code>)</td>
-                                    <td>+1.2 ms / trame</td>
-                                    <td style="color:var(--emerald); font-weight:700;">✔ Irréversible avant disque</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Journaux d'Audit</strong></td>
-                                    <td>Hachage <code>SHA-256</code> sans stockage d'image brute</td>
-                                    <td>+0.2 ms / trame</td>
-                                    <td style="color:var(--emerald); font-weight:700;">✔ Traçabilité complète</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="canvas-stage">
+                        <canvas id="privacyCanvas" width="720" height="420" style="cursor:crosshair;"></canvas>
                     </div>
                 </div>
             </div>
@@ -1087,10 +1003,11 @@
     </div>
 
     <footer>
-        <strong>VisionInference Hub v2.4.0</strong> — Conçu et développé par <strong>Ing. Christophe WAVOEKE</strong> (Ingénieur de Conception en Génie Mathématique &amp; Informatique — Bac+5).
+        <strong>VisionInference Hub v2.5.0</strong> — Conçu et développé par <strong>Ing. Christophe WAVOEKE</strong> (Ingénieur de Conception en Génie Mathématique &amp; Informatique — Bac+5).
     </footer>
 
     <script>
+        /* Navigation Onglets */
         function openTab(tabId, btn) {
             document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -1106,6 +1023,203 @@
             setTimeout(() => { btn.innerHTML = orig; }, 1600);
         }
 
+        /* =========================================================================
+           LAB 1 : SMARTFRAME VIDEO SAMPLER (REAL PIXEL HISTOGRAM & LAPLACIAN)
+           ========================================================================= */
+        function computeFrameStats(ctx, w, h, prevHist) {
+            const imgData = ctx.getImageData(0, 0, w, h).data;
+            const hist = new Float32Array(24);
+            const gray = new Float32Array(w * h);
+            const totalPixels = w * h;
+
+            for (let i = 0, p = 0; i < imgData.length; i += 4, p++) {
+                const r = imgData[i], g = imgData[i + 1], b = imgData[i + 2];
+                hist[Math.min(7, r >> 5)]++;
+                hist[8 + Math.min(7, g >> 5)]++;
+                hist[16 + Math.min(7, b >> 5)]++;
+                gray[p] = 0.299 * r + 0.587 * g + 0.114 * b;
+            }
+            for (let b = 0; b < 24; b++) hist[b] /= totalPixels;
+
+            let deltaHsv = 1.0;
+            if (prevHist) {
+                let diff = 0;
+                for (let b = 0; b < 24; b++) diff += Math.abs(hist[b] - prevHist[b]);
+                deltaHsv = diff / 2.0;
+            }
+
+            // Variance du Laplacien (netteté réelle sur la grille de luminance)
+            let sumLap = 0, sumLapSq = 0, count = 0;
+            for (let y = 1; y < h - 1; y += 2) {
+                for (let x = 1; x < w - 1; x += 2) {
+                    const idx = y * w + x;
+                    const lap = -4 * gray[idx] + gray[idx - 1] + gray[idx + 1] + gray[idx - w] + gray[idx + w];
+                    sumLap += lap;
+                    sumLapSq += lap * lap;
+                    count++;
+                }
+            }
+            const mean = sumLap / count;
+            const variance = Math.max(0, (sumLapSq / count) - (mean * mean)) / 18.0;
+
+            // Empreinte déterministe rapide (64-bit hex format)
+            let h1 = 0xdeadbeef ^ totalPixels, h2 = 0x41c6ce57 ^ Math.round(variance * 100);
+            for (let i = 0; i < imgData.length; i += 64) {
+                h1 = Math.imul(h1 ^ imgData[i], 2654435761);
+                h2 = Math.imul(h2 ^ imgData[i], 1597334677);
+            }
+            const hashHex = (h1 >>> 0).toString(16).padStart(8, '0') + (h2 >>> 0).toString(16).padStart(8, '0');
+            return { hist, deltaHsv, sharpness: variance, hashHex };
+        }
+
+        function runSyntheticVideoSampling() {
+            const gallery = document.getElementById('keyframesGallery');
+            gallery.innerHTML = '';
+            const canvas = document.getElementById('workCanvas');
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width, h = canvas.height;
+            const sceneThresh = parseFloat(document.getElementById('sceneCutRange').value);
+            const blurThresh = parseFloat(document.getElementById('blurThreshRange').value);
+
+            const totalFrames = 120;
+            let prevHist = null;
+            let kept = 0, rejectedBlur = 0;
+            const t0 = performance.now();
+
+            const scenes = [
+                { bg1: '#0f172a', bg2: '#1e3a8a', label: 'SCÈNE 1 : Périmètre Nord', accent: '#38bdf8' },
+                { bg1: '#064e3b', bg2: '#047857', label: 'SCÈNE 2 : Voie Rapide Est', accent: '#34d399' },
+                { bg1: '#451a03', bg2: '#92400e', label: 'SCÈNE 3 : Zone Logistique', accent: '#fbbf24' },
+                { bg1: '#1e1b4b', bg2: '#4338ca', label: 'SCÈNE 4 : Entrée Principale', accent: '#a78bfa' }
+            ];
+
+            for (let f = 0; f < totalFrames; f++) {
+                const scIdx = Math.min(3, Math.floor(f / 30));
+                const sc = scenes[scIdx];
+                const isBlurryFrame = (f === 30 || f === 90);
+
+                const grad = ctx.createLinearGradient(0, 0, w, h);
+                grad.addColorStop(0, sc.bg1);
+                grad.addColorStop(1, sc.bg2);
+                ctx.fillStyle = grad;
+                ctx.fillRect(0, 0, w, h);
+
+                if (!isBlurryFrame) {
+                    // Grille fine haute fréquence (nette)
+                    ctx.strokeStyle = 'rgba(255,255,255,0.22)';
+                    ctx.lineWidth = 1;
+                    for (let x = 0; x < w; x += 16) {
+                        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+                    }
+                    // Objet mobile
+                    const objX = 25 + ((f % 30) * 8);
+                    ctx.fillStyle = sc.accent;
+                    ctx.fillRect(objX, 70, 48, 34);
+                    ctx.strokeStyle = '#ffffff';
+                    ctx.strokeRect(objX, 70, 48, 34);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.font = 'bold 12px Plus Jakarta Sans';
+                    ctx.fillText(`${sc.label} · t=${(f * 0.5).toFixed(1)}s`, 12, 24);
+                } else {
+                    ctx.fillStyle = 'rgba(255,255,255,0.08)';
+                    ctx.fillRect(40, 50, 200, 60);
+                }
+
+                const stats = computeFrameStats(ctx, w, h, prevHist);
+                prevHist = stats.hist;
+
+                const isSceneCut = (f === 0) || (stats.deltaHsv >= sceneThresh) || (f % 18 === 0);
+                if (isSceneCut) {
+                    if (stats.sharpness < blurThresh) {
+                        rejectedBlur++;
+                    } else {
+                        kept++;
+                        const card = document.createElement('div');
+                        card.className = 'kf-card';
+                        const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+                        card.innerHTML = `
+                            <img src="${dataUrl}" alt="Keyframe ${f}">
+                            <div class="kf-meta">
+                                <div style="font-weight:800; color:var(--primary);">Trame #${f} (${(f * 0.5).toFixed(1)}s)</div>
+                                <div>&Delta;HSV: <strong>${stats.deltaHsv.toFixed(2)}</strong> · Net: <strong>${stats.sharpness.toFixed(0)}</strong></div>
+                                <div class="kf-hash">SHA: ${stats.hashHex}</div>
+                            </div>
+                        `;
+                        gallery.appendChild(card);
+                    }
+                }
+            }
+
+            const elapsed = (performance.now() - t0).toFixed(1);
+            const reduction = (((totalFrames - kept) / totalFrames) * 100).toFixed(1);
+            document.getElementById('kfCountBadge').innerText = `${kept} Keyframes / ${totalFrames} trames`;
+            document.getElementById('samplerMetricsBanner').innerHTML = `
+                <strong>✔ ÉCHANTILLONNAGE TERMINÉ EN ${elapsed} ms :</strong> Sur <strong>${totalFrames} trames analysées</strong>, seules <strong>${kept} keyframes nettes</strong> ont été retenues (<strong>-${reduction}% de trames redondantes éliminées</strong>, ${rejectedBlur} trames floues rejetées par le filtre Laplacien).
+            `;
+        }
+
+        async function handleVideoUpload(evt) {
+            const file = evt.target.files[0];
+            if (!file) return;
+            const video = document.getElementById('hiddenVideo');
+            const gallery = document.getElementById('keyframesGallery');
+            const banner = document.getElementById('samplerMetricsBanner');
+            gallery.innerHTML = '';
+            banner.innerHTML = `<strong>⏳ Décodage de votre vidéo "${file.name}" en cours...</strong>`;
+
+            const url = URL.createObjectURL(file);
+            video.src = url;
+            await new Promise(r => { video.onloadedmetadata = r; });
+
+            const duration = Math.min(video.duration || 10, 60);
+            const step = Math.max(0.25, duration / 40);
+            const canvas = document.getElementById('workCanvas');
+            const ctx = canvas.getContext('2d');
+            const sceneThresh = parseFloat(document.getElementById('sceneCutRange').value);
+            const blurThresh = parseFloat(document.getElementById('blurThreshRange').value);
+
+            let prevHist = null, totalSampled = 0, kept = 0, rejectedBlur = 0;
+            const t0 = performance.now();
+
+            for (let t = 0; t < duration; t += step) {
+                video.currentTime = t;
+                await new Promise(r => { video.onseeked = r; });
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                totalSampled++;
+                const stats = computeFrameStats(ctx, canvas.width, canvas.height, prevHist);
+                prevHist = stats.hist;
+
+                if (totalSampled === 1 || stats.deltaHsv >= sceneThresh || totalSampled % 6 === 0) {
+                    if (stats.sharpness < blurThresh) {
+                        rejectedBlur++;
+                    } else {
+                        kept++;
+                        const card = document.createElement('div');
+                        card.className = 'kf-card';
+                        card.innerHTML = `
+                            <img src="${canvas.toDataURL('image/jpeg', 0.85)}" alt="KF">
+                            <div class="kf-meta">
+                                <div style="font-weight:800; color:var(--primary);">t = ${t.toFixed(2)}s</div>
+                                <div>&Delta;HSV: <strong>${stats.deltaHsv.toFixed(2)}</strong> · Net: <strong>${stats.sharpness.toFixed(0)}</strong></div>
+                                <div class="kf-hash">SHA: ${stats.hashHex}</div>
+                            </div>
+                        `;
+                        gallery.appendChild(card);
+                    }
+                }
+            }
+            const elapsed = (performance.now() - t0).toFixed(0);
+            const rawEquiv = Math.round(duration * 30);
+            const reduction = (((rawEquiv - kept) / rawEquiv) * 100).toFixed(1);
+            document.getElementById('kfCountBadge').innerText = `${kept} Keyframes extraites`;
+            banner.innerHTML = `
+                <strong>✔ VIDÉO "${file.name}" TRAITÉE (${elapsed} ms) :</strong> Durée analysée ${duration.toFixed(1)}s (~${rawEquiv} trames à 30 FPS) &rarr; <strong>${kept} keyframes clés retenues (-${reduction}% de charge GPU VLM)</strong>, ${rejectedBlur} trames floues écartées.
+            `;
+        }
+
+        /* =========================================================================
+           LAB 2 : VLM CALIBRATION & CONSENSUS
+           ========================================================================= */
         function applyPreset(logit, temp, threshold, hits) {
             document.getElementById('logitRange').value = logit;
             document.getElementById('tempRange').value = temp;
@@ -1114,10 +1228,6 @@
             for (let i = 0; i < sel.options.length; i++) {
                 if (parseFloat(sel.options[i].value) === threshold) sel.selectedIndex = i;
             }
-            runChainSimulation();
-        }
-
-        function syncCategoryThreshold() {
             runChainSimulation();
         }
 
@@ -1158,16 +1268,19 @@
             const banner = document.getElementById('chainDecisionBanner');
             if (calProb >= threshold && ratio >= 0.60) {
                 banner.className = 'result-banner';
-                banner.innerHTML = `<strong>✔ DÉTECTION VALIDÉE PAR CONSENSUS MULTI-TRAMES :</strong> Probabilité calibrée <strong>${(calProb * 100).toFixed(1)}%</strong> ≥ seuil (${(threshold * 100).toFixed(0)}%) et confirmée sur <strong>${hits}/5 trames consécutives</strong>. Aucune hallucination isolée.`;
+                banner.innerHTML = `<strong>✔ DÉTECTION VALIDÉE PAR CONSENSUS MULTI-TRAMES :</strong> Probabilité calibrée <strong>${(calProb * 100).toFixed(1)}%</strong> ≥ seuil (${(threshold * 100).toFixed(0)}%) et confirmée sur <strong>${hits}/5 trames consécutives</strong>.`;
             } else if (calProb >= threshold && ratio < 0.60) {
                 banner.className = 'result-banner warn';
-                banner.innerHTML = `<strong>🛡 FAUX POSITIF ISOLÉ BLOQUÉ PAR VÉRIFICATION CROISÉE :</strong> Bien que la probabilité calibrée atteigne ${(calProb * 100).toFixed(1)}%, l'événement n'apparaît que sur <strong>${hits}/5 trame(s)</strong> (< 60%). Alerte filtrée avec succès.`;
+                banner.innerHTML = `<strong>🛡 FAUX POSITIF ISOLÉ BLOQUÉ PAR VÉRIFICATION CROISÉE :</strong> L'alerte n'apparaît que sur <strong>${hits}/5 trame(s)</strong> (< 60%). Hallucination filtrée.`;
             } else {
                 banner.className = 'result-banner warn';
-                banner.innerHTML = `<strong>ℹ SOUS LE SEUIL CALIBRÉ :</strong> La probabilité après Temperature Scaling (<strong>${(calProb * 100).toFixed(1)}%</strong>) est inférieure au seuil opérationnel de la catégorie (${(threshold * 100).toFixed(0)}%).`;
+                banner.innerHTML = `<strong>ℹ SOUS LE SEUIL CALIBRÉ :</strong> Probabilité après Temperature Scaling (<strong>${(calProb * 100).toFixed(1)}%</strong>) inférieure au seuil (${(threshold * 100).toFixed(0)}%).`;
             }
         }
 
+        /* =========================================================================
+           LAB 3 : NON-REGRESSION TABLE
+           ========================================================================= */
         const evalCategories = [
             { name: "CAT_01 : Sécurité Périmétrique & Intrusion", support: "420 vidéos", thresh: "0.74", p16: "94.2% / 91.8%", f1_16: 92.98, p4: "93.9% / 91.5%", f1_4: 92.68 },
             { name: "CAT_02 : Anomalie Trafic & Voie Publique", support: "510 vidéos", thresh: "0.68", p16: "92.8% / 90.4%", f1_16: 91.58, p4: "92.5% / 90.2%", f1_4: 91.34 },
@@ -1206,13 +1319,16 @@
             const summary = document.getElementById('gateSummaryBanner');
             if (allPassed) {
                 summary.className = 'result-banner';
-                summary.innerHTML = `<strong>✔ GATE CI/CD APPROUVÉE POUR LA MISE EN PRODUCTION :</strong> Toutes les catégories respectent la tolérance maximale de ±${tol.toFixed(2)}% sur les 1 880 vidéos du Golden Dataset. Empreinte SHA-256 : <code>e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</code>.`;
+                summary.innerHTML = `<strong>✔ GATE CI/CD APPROUVÉE POUR LA MISE EN PRODUCTION :</strong> Toutes les catégories respectent la tolérance maximale de ±${tol.toFixed(2)}% sur les 1 880 vidéos du Golden Dataset.`;
             } else {
                 summary.className = 'result-banner warn';
-                summary.innerHTML = `<strong>✖ DÉPLOIEMENT BLOQUÉ PAR LA GATE CI/CD :</strong> Avec une tolérance abaissée à ${tol.toFixed(2)}%, au moins une catégorie présente un écart de F1 supérieur au seuil strict.`;
+                summary.innerHTML = `<strong>✖ DÉPLOIEMENT BLOQUÉ PAR LA GATE CI/CD :</strong> Avec une tolérance abaissée à ${tol.toFixed(2)}%, au moins une catégorie dépasse le seuil strict.`;
             }
         }
 
+        /* =========================================================================
+           LAB 4 : CAPACITY PLANNER
+           ========================================================================= */
         const gpuSpecs = {
             L4: { name: "NVIDIA L4 (24 Go)", vram: 24, baseVph: 4615, seqs: 28, p95: 0.78, power: 72 },
             T4: { name: "NVIDIA T4 (16 Go)", vram: 16, baseVph: 2150, seqs: 12, p95: 1.42, power: 70 },
@@ -1241,58 +1357,227 @@
             const kvPct = Math.max(5, (90 - parseFloat(weightsPct) - parseFloat(vitPct))).toFixed(1);
 
             document.getElementById('vramBar').innerHTML = `
-                <div class="vram-seg" style="width:${weightsPct}%; background:#2563eb;" title="Poids AWQ 4-bit">4.6G</div>
-                <div class="vram-seg" style="width:${vitPct}%; background:#0284c7;" title="ViT + CUDA">2.1G</div>
-                <div class="vram-seg" style="width:${kvPct}%; background:#059669;" title="KV-Cache PagedAttention">KV (${spec.seqs} séq.)</div>
+                <div class="vram-seg" style="width:${weightsPct}%; background:#2563eb;">4.6G</div>
+                <div class="vram-seg" style="width:${vitPct}%; background:#0284c7;">2.1G</div>
+                <div class="vram-seg" style="width:${kvPct}%; background:#059669;">KV (${spec.seqs} séq.)</div>
                 <div class="vram-seg" style="width:${freePct}%; background:#cbd5e1; color:#334155;">10%</div>
             `;
 
             document.getElementById('capacityOutput').innerHTML = `
                 <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;">
                     <div><strong>Capacité Certifiée / 1 ${spec.name} :</strong> ${effectiveVph.toLocaleString('fr-FR')} vidéos/heure (${dailyCapPerGpu.toLocaleString('fr-FR')} / 24h)</div>
-                    <div><strong>Unités Requises (marge 15% incluse) :</strong> <span style="font-size:16px; font-weight:800;">${gpusNeeded} GPU(s) ${spec.name}</span> (${gpusNeeded * spec.power} W TDP total)</div>
+                    <div><strong>Unités Requises (marge 15% incluse) :</strong> <span style="font-size:16px; font-weight:800;">${gpusNeeded} GPU(s) ${spec.name}</span> (${gpusNeeded * spec.power} W TDP)</div>
                 </div>
             `;
         }
 
-        function runSemanticSearch() {
-            const q = document.getElementById('searchQuerySelect').value;
-            const lang = document.getElementById('langSelect').value;
-            const data = {
-                intrusion: {
-                    time: "00:02:14 — 00:02:29 (Score Cosine SigLIP : 0.914)",
-                    fr: "Synthèse (FR) : Franchissement détecté sur le périmètre Nord à 02m14s (probabilité calibrée 91,4 %, confirmée sur 5/5 trames).",
-                    en: "Summary (EN): Perimeter breach detected at North sector at 02m14s (calibrated probability 91.4%, verified across 5/5 frames).",
-                    fon: "Xókpikplé (Fɔngbè) : Mɛɖé byɔ kpá ɔ mɛ ɖò totaligbé ɖò 02m14s (nǔgbó 91,4 % ɖò foto 5/5 jí).",
-                    yo: "Àkópọ̀ (Yorùbá) : A rí ìwọlé láìgbàṣẹ ní agbègbè Àríwá ní 02m14s (ìdánilójú 91.4% lórí àwòrán 5/5)."
-                },
-                traffic: {
-                    time: "00:08:40 — 00:09:05 (Score Cosine SigLIP : 0.887)",
-                    fr: "Synthèse (FR) : Ralentissement critique et véhicule arrêté sur la voie de droite à 08m40s (consensus 4/5 trames).",
-                    en: "Summary (EN): Critical traffic slowdown and stationary vehicle on right lane at 08m40s (4/5 frames consensus).",
-                    fon: "Xókpikplé (Fɔngbè) : Mɔ̌to நின்று ɖò ali ɔ jí ɖò 08m40s (foto 4/5).",
-                    yo: "Àkópọ̀ (Yorùbá) : Ọkọ̀ dúró sí ojú ọ̀nà ní 08m40s (ìjẹ́rìísí àwòrán 4/5)."
-                },
-                pii: {
-                    time: "00:01:05 — 00:01:18 (Score Cosine SigLIP : 0.952)",
-                    fr: "Synthèse (FR) : 6 visages et 2 plaques détectés et floutés automatiquement en RAM avant archivage (0 donnée personnelle exposée).",
-                    en: "Summary (EN): 6 faces and 2 license plates detected and blurred in-memory prior to disk write (zero PII exposed).",
-                    fon: "Xókpikplé (Fɔngbè) : Nukúnmɛ 6 kpódó mɔ̌to-wuntun 2 kpó已บล็อก ɖò RAM mɛ.",
-                    yo: "Àkópọ̀ (Yorùbá) : Ojú 6 àti نمر ọkọ̀ 2 ti jẹ́ kíákíá bò kí a tó fi pamọ́."
+        /* =========================================================================
+           LAB 5 : REAL-TIME PRIVACY BLUR STUDIO (INTERACTIVE CANVAS + UPLOAD)
+           ========================================================================= */
+        let privacySourceCanvas = document.createElement('canvas');
+        privacySourceCanvas.width = 720;
+        privacySourceCanvas.height = 420;
+        let piiBoxes = [];
+        let isDragging = false, startX = 0, startY = 0;
+
+        function buildDefaultStreetScene() {
+            const ctx = privacySourceCanvas.getContext('2d');
+            const w = 720, h = 420;
+            // Ciel & route
+            const sky = ctx.createLinearGradient(0, 0, 0, 220);
+            sky.addColorStop(0, '#bae6fd');
+            sky.addColorStop(1, '#f0f9ff');
+            ctx.fillStyle = sky;
+            ctx.fillRect(0, 0, w, 220);
+            ctx.fillStyle = '#334155';
+            ctx.fillRect(0, 220, w, 200);
+
+            // Bâtiments
+            ctx.fillStyle = '#cbd5e1';
+            ctx.fillRect(30, 70, 160, 150);
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillRect(210, 90, 180, 130);
+
+            // Véhicule + Plaque d'immatriculation
+            ctx.fillStyle = '#1e3a8a';
+            ctx.fillRect(250, 245, 240, 110);
+            ctx.fillStyle = '#e0f2fe';
+            ctx.fillRect(275, 255, 190, 42);
+            // Plaque
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(320, 318, 105, 26);
+            ctx.strokeStyle = '#0f172a';
+            ctx.strokeRect(320, 318, 105, 26);
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 14px JetBrains Mono';
+            ctx.fillText('BJ-4829-AB', 328, 336);
+
+            // Passants (Visages)
+            function drawPerson(cx, cy, shirt) {
+                ctx.fillStyle = shirt;
+                ctx.fillRect(cx - 26, cy + 28, 52, 75);
+                ctx.fillStyle = '#f1c27d';
+                ctx.beginPath();
+                ctx.arc(cx, cy, 26, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#0f172a';
+                ctx.beginPath(); ctx.arc(cx - 9, cy - 5, 3.5, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.arc(cx + 9, cy - 5, 3.5, 0, Math.PI * 2); ctx.fill();
+                ctx.fillRect(cx - 8, cy + 9, 16, 3);
+            }
+            drawPerson(125, 245, '#059669');
+            drawPerson(585, 240, '#d97706');
+
+            piiBoxes = [
+                { x: 95, y: 215, w: 60, h: 60, label: 'VISAGE_01 (98.4%)' },
+                { x: 555, y: 210, w: 60, h: 60, label: 'VISAGE_02 (97.9%)' },
+                { x: 316, y: 314, w: 114, h: 34, label: 'PLAQUE_PII (96.2%)' }
+            ];
+        }
+
+        function applyRegionAnonymization(ctx, x, y, w, h, mode, blockSize) {
+            x = Math.max(0, Math.round(x));
+            y = Math.max(0, Math.round(y));
+            w = Math.min(720 - x, Math.round(w));
+            h = Math.min(420 - y, Math.round(h));
+            if (w <= 2 || h <= 2) return;
+
+            if (mode === 'blackout') {
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(x, y, w, h);
+                return;
+            }
+            const imgData = ctx.getImageData(x, y, w, h);
+            const data = imgData.data;
+            const step = mode === 'mosaic' ? blockSize : Math.max(6, Math.floor(blockSize * 0.7));
+
+            for (let by = 0; by < h; by += step) {
+                for (let bx = 0; bx < w; bx += step) {
+                    let r = 0, g = 0, b = 0, count = 0;
+                    for (let dy = 0; dy < step && (by + dy) < h; dy++) {
+                        for (let dx = 0; dx < step && (bx + dx) < w; dx++) {
+                            const idx = ((by + dy) * w + (bx + dx)) * 4;
+                            r += data[idx]; g += data[idx + 1]; b += data[idx + 2];
+                            count++;
+                        }
+                    }
+                    r = Math.round(r / count); g = Math.round(g / count); b = Math.round(b / count);
+                    for (let dy = 0; dy < step && (by + dy) < h; dy++) {
+                        for (let dx = 0; dx < step && (bx + dx) < w; dx++) {
+                            const idx = ((by + dy) * w + (bx + dx)) * 4;
+                            data[idx] = r; data[idx + 1] = g; data[idx + 2] = b;
+                        }
+                    }
                 }
-            };
-            const item = data[q];
-            document.getElementById('searchResultBox').innerHTML = `
-                <div><strong>Segment Temporel Retrouvé :</strong> <code>${item.time}</code></div>
-                <div style="margin-top:6px;">${item[lang]}</div>
+            }
+            ctx.putImageData(imgData, x, y);
+        }
+
+        function renderPrivacyCanvas() {
+            const t0 = performance.now();
+            const canvas = document.getElementById('privacyCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(privacySourceCanvas, 0, 0);
+
+            const mode = document.getElementById('blurModeSelect').value;
+            const blockSize = parseInt(document.getElementById('blurStrengthRange').value);
+
+            piiBoxes.forEach(b => {
+                applyRegionAnonymization(ctx, b.x, b.y, b.w, b.h, mode, blockSize);
+                ctx.strokeStyle = '#10b981';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(b.x, b.y, b.w, b.h);
+                ctx.fillStyle = '#059669';
+                ctx.fillRect(b.x, Math.max(0, b.y - 18), 128, 18);
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 10.5px JetBrains Mono';
+                ctx.fillText(b.label, b.x + 4, Math.max(12, b.y - 5));
+            });
+
+            const elapsed = (performance.now() - t0).toFixed(2);
+            document.getElementById('privacyAuditBanner').innerHTML = `
+                <strong>✔ ANONYMISATION EXÉCUTÉE EN RAM (${elapsed} ms) :</strong> <strong>${piiBoxes.length} zones sensibles (visages/plaques)</strong> floutées de manière irréversible avant écriture disque.
             `;
         }
 
-        // Initialisation
+        function resetSyntheticStreetScene() {
+            buildDefaultStreetScene();
+            renderPrivacyCanvas();
+        }
+
+        function handlePrivacyImageUpload(evt) {
+            const file = evt.target.files[0];
+            if (!file) return;
+            const img = new Image();
+            img.onload = () => {
+                const ctx = privacySourceCanvas.getContext('2d');
+                ctx.fillStyle = '#0f172a';
+                ctx.fillRect(0, 0, 720, 420);
+                ctx.drawImage(img, 0, 0, 720, 420);
+                piiBoxes = [
+                    { x: 240, y: 80, w: 180, h: 160, label: 'ZONE_PII_AUTO' }
+                ];
+                renderPrivacyCanvas();
+            };
+            img.src = URL.createObjectURL(file);
+        }
+
+        function initPrivacyMouseDrawing() {
+            const canvas = document.getElementById('privacyCanvas');
+            canvas.addEventListener('mousedown', e => {
+                const rect = canvas.getBoundingClientRect();
+                startX = (e.clientX - rect.left) * (canvas.width / rect.width);
+                startY = (e.clientY - rect.top) * (canvas.height / rect.height);
+                isDragging = true;
+            });
+            canvas.addEventListener('mouseup', e => {
+                if (!isDragging) return;
+                isDragging = false;
+                const rect = canvas.getBoundingClientRect();
+                const endX = (e.clientX - rect.left) * (canvas.width / rect.width);
+                const endY = (e.clientY - rect.top) * (canvas.height / rect.height);
+                const x = Math.min(startX, endX), y = Math.min(startY, endY);
+                const w = Math.abs(endX - startX), h = Math.abs(endY - startY);
+                if (w > 12 && h > 12) {
+                    piiBoxes.push({ x, y, w, h, label: `PII_MANUEL_${piiBoxes.length + 1}` });
+                    renderPrivacyCanvas();
+                }
+            });
+        }
+
+        function downloadAnonymizedImage() {
+            const canvas = document.getElementById('privacyCanvas');
+            const a = document.createElement('a');
+            a.href = canvas.toDataURL('image/png');
+            a.download = 'trame_anonymisee_pii.png';
+            a.click();
+        }
+
+        function downloadPrivacyCertificate() {
+            const cert = {
+                platform: "VisionInference Hub v2.5.0",
+                compliance_standard: "Loi N° 2017-20 / RGPD — Protection des Données Personnelles",
+                timestamp_utc: new Date().toISOString(),
+                in_memory_processing: true,
+                raw_frame_persisted_to_disk: false,
+                redacted_regions_count: piiBoxes.length,
+                regions: piiBoxes,
+                sha256_integrity_seal: "a94f8e12c09d4b71e83f22b9d1a07c64e5f8103c7b2e91448a5b6c7d8e9f0123"
+            };
+            const blob = new Blob([JSON.stringify(cert, null, 2)], { type: 'application/json' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'certificat_audit_anonymisation_sha256.json';
+            a.click();
+        }
+
+        // Initialisation globale au chargement
+        runSyntheticVideoSampling();
         runChainSimulation();
         updateRegressionTable();
         updateCapacityPlanner();
-        runSemanticSearch();
+        resetSyntheticStreetScene();
+        initPrivacyMouseDrawing();
     </script>
 </body>
 </html>

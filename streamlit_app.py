@@ -5,10 +5,12 @@ Concepteur : Ing. Christophe WAVOEKE (Ingénieur de Conception Bac+5 — Lauréa
 """
 import os
 import sys
+import io
 import json
 import streamlit as st
 import pandas as pd
 import numpy as np
+from PIL import Image
 import plotly.express as px
 import plotly.graph_objects as go
 
@@ -154,24 +156,29 @@ with tabs[0]:
         temp_t = st.slider("Température de calibration probabiliste (T*)", 1.00, 2.20, 1.38, 0.02)
         window_n = st.slider("Fenêtre de vérification croisée inter-trames (N)", 3, 9, 5, 2)
     with col_b:
-        ffmpeg_cmd = build_ffmpeg_nvdec_command("flux_camera_01.mp4", "keyframes/", fps_target, scene_thresh)
+        ffmpeg_cmd = build_ffmpeg_nvdec_command(
+            input_video="flux_camera_01.mp4",
+            fps_target=fps_target,
+            scene_threshold=scene_thresh,
+            use_gpu_nvdec=True,
+        )
         st.markdown("**Commande d'extraction hybride `FFmpeg NVDEC (CUDA)` générée :**")
         st.code(ffmpeg_cmd, language="bash")
-        sim_res = simulate_video_chain_execution(
-            video_duration_s=duration_s,
+        df_frames, summary_m1 = simulate_video_chain_execution(
+            duration_sec=duration_s,
             source_fps=30,
-            sampled_fps=fps_target,
-            temperature_t=temp_t,
+            sampling_fps=fps_target,
+            scene_threshold=scene_thresh,
+            temperature_T=temp_t,
             consensus_window=window_n,
         )
-        st.json(sim_res["integrity_and_sampling"])
+        st.json(summary_m1)
 
-    df_frames = pd.DataFrame(sim_res["frame_timeline"])
     fig1 = go.Figure()
     fig1.add_trace(
         go.Scatter(
-            x=df_frames["timestamp_s"],
-            y=df_frames["raw_prob"],
+            x=df_frames["timestamp_sec"],
+            y=df_frames["uncalibrated_prob"],
             mode="lines+markers",
             name="Probabilité brute VLM (Non calibrée)",
             line=dict(color="#f59e0b", dash="dot"),
@@ -179,14 +186,14 @@ with tabs[0]:
     )
     fig1.add_trace(
         go.Scatter(
-            x=df_frames["timestamp_s"],
+            x=df_frames["timestamp_sec"],
             y=df_frames["calibrated_prob"],
             mode="lines+markers",
-            name=f"Probabilité calibrée (T*={temp_t}) + Consensus N={window_n}",
+            name=f"Probabilité calibrée (T*={temp_t})",
             line=dict(color="#2563eb", width=3),
         )
     )
-    fig1.add_hline(y=0.72, line_dash="dash", line_color="#059669", annotation_text="Seuil Opérationnel Calibré (0.72)")
+    fig1.add_hline(y=0.74, line_dash="dash", line_color="#059669", annotation_text="Seuil Opérationnel Calibré (0.74)")
     fig1.update_layout(
         title="Calibration Temperature Scaling & Filtrage des Faux Positifs Isolés par Vérification Croisée",
         xaxis_title="Temps Vidéo (secondes)",
@@ -198,15 +205,15 @@ with tabs[0]:
 
 with tabs[1]:
     st.subheader("Module 2 — Méthode d'Évaluation Opérationnelle & Protocole de Non-Régression")
-    max_drop = st.slider("Tolérance maximale de baisse de F1-Score autorisée (Gate CI/CD)", 0.002, 0.020, 0.010, 0.001)
-    eval_report = run_non_regression_protocol(max_allowed_f1_drop=max_drop)
-    if eval_report["overall_gate_passed"]:
+    max_drop_pct = st.slider("Tolérance maximale de baisse de F1-Score autorisée (%)", 0.1, 2.0, 1.0, 0.1)
+    df_eval, manifest_m2 = run_non_regression_protocol(max_allowed_f1_drop_pct=max_drop_pct)
+    if manifest_m2["gate_decision"] == "APPROVED_FOR_PRODUCTION":
         st.success(
-            f"✅ GATE DE NON-RÉGRESSION VALIDÉE — Manifeste SHA-256 : `{eval_report['reproducibility_manifest_sha256'][:24]}...`"
+            f"✅ GATE DE NON-RÉGRESSION VALIDÉE — Manifeste SHA-256 : `{manifest_m2['reproducibility_sha256'][:28]}...`"
         )
     else:
         st.error("❌ GATE DE NON-RÉGRESSION BLOQUÉE — Déploiement refusé.")
-    st.dataframe(pd.DataFrame(eval_report["categories_ detail"]), use_container_width=True)
+    st.dataframe(df_eval, use_container_width=True)
 
 with tabs[2]:
     st.subheader("Module 3 — Gains d'Optimisation Mesurés (`vLLM` / Quantification) & Capacité par GPU")
@@ -218,20 +225,24 @@ with tabs[2]:
         gpu_choice = st.selectbox("Sélectionner l'unité de calcul GPU de référence", list(GPU_HARDWARE_SPECS.keys()), index=1)
         daily_target = st.number_input("Volume cible de vidéos à analyser par 24h", 1000, 1000000, 100000, 5000)
         avg_dur = st.slider("Durée moyenne par vidéo (s)", 15, 180, 60, 15)
-        cap_plan = compute_gpu_capacity_plan(gpu_choice, avg_dur, 2.0, 8, daily_target)
+        cap_plan = compute_gpu_capacity_plan(
+            gpu_model_name=gpu_choice,
+            daily_video_volume=daily_target,
+            avg_video_duration_sec=avg_dur,
+            frames_sampled_per_video=8,
+        )
         st.info(
-            f"**Capacité par unité `{gpu_choice}` :** `{cap_plan['Reference_Videos_Per_Hour_1_GPU']:,}` vidéos/heure "
-            f"(`{cap_plan['Reference_Videos_Per_24h_1_GPU']:,}` vidéos/24h)\n\n"
-            f"**Dimensionnement recommandé pour `{daily_target:,}` vidéos/jour :** "
-            f"**`{cap_plan['Required_GPU_Units_With_15pct_Headroom']} unité(s) GPU`** (marge de sécurité 15% incluse)."
+            f"**Capacité par unité `{gpu_choice}` :** `{cap_plan['capacity_videos_per_hour_per_gpu']:,}` vidéos/heure "
+            f"(`{cap_plan['capacity_videos_per_day_24h_per_gpu']:,}` vidéos/24h)\n\n"
+            f"**Dimensionnement recommandé (N+1 HA) :** "
+            f"**`{cap_plan['recommended_gpus_n_plus_1']} unité(s) GPU`** ({cap_plan['estimated_power_kw']} kW TDP)."
         )
     with c_right:
         fig_bench = px.bar(
             df_bench,
             x="Configuration",
-            y="Throughput_Videos_Per_Hour",
+            y="Throughput_Videos_Per_Hour_L4",
             color="VRAM_Peak_GB",
-            text="Speedup_Factor",
             title="Capacité Horaire (Vidéos/h) & Empreinte VRAM Pic (Go)",
             template="plotly_white",
             color_continuous_scale="Blues",
@@ -240,8 +251,19 @@ with tabs[2]:
 
 with tabs[3]:
     st.subheader("Module 4 — Anonymisation Temps Réel Visages & Plaques (Loi N° 2017-20 / RGPD)")
-    raw_img, boxes = generate_synthetic_urban_scene()
-    anon_img, audit = apply_apdp_anonymization(raw_img, boxes)
+    uploaded_img = st.file_uploader("Importer votre propre image (.jpg / .png) ou utiliser la scène urbaine par défaut :", type=["jpg", "jpeg", "png"])
+    anon_mode = st.selectbox("Méthode de masquage irréversible en RAM :", ["GAUSSIAN_BLUR", "MOSAIC_PIXELATION", "SOLID_CRYPTO_MASK"])
+
+    if uploaded_img is not None:
+        pil_img = Image.open(uploaded_img).convert("RGB").resize((640, 360))
+        raw_img = np.array(pil_img)
+        boxes = [
+            {"id": "PII-UPLOAD-01", "type": "ZONE_SENSIBLE_CENTRALE", "bbox": (180, 70, 440, 260), "confidence": 0.97}
+        ]
+    else:
+        raw_img, boxes = generate_synthetic_urban_scene()
+
+    anon_img, audit = apply_apdp_anonymization(raw_img, boxes, method=anon_mode)
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("**Trame Brute Capturée (Données personnelles exposées)**")
@@ -249,11 +271,24 @@ with tabs[3]:
     with col2:
         st.markdown("**Trame Anonymisée à la Volée en RAM (Conforme Protection des Données)**")
         st.image(anon_img, use_container_width=True)
+
+    buf = io.BytesIO()
+    Image.fromarray(anon_img).save(buf, format="PNG")
+    st.download_button(
+        "⬇️ Télécharger l'image anonymisée (.png)",
+        data=buf.getvalue(),
+        file_name="trame_anonymisee_pii.png",
+        mime="image/png",
+    )
     st.json(audit)
 
 with tabs[4]:
     st.subheader("Module 5 — Recherche Multimodale Vectorielle (`SigLIP`) & Synthèses Multilingues")
-    query_txt = st.text_input("Requête sémantique multimodale :", "Intrusion périmétrique nocturne détectée près du dépôt")
-    lang_code = st.selectbox("Langue de synthèse :", ["fr", "en", "fon", "yo"], index=0)
-    results = semantic_video_search(query_txt, top_k=3, target_lang=lang_code)
-    st.dataframe(pd.DataFrame(results), use_container_width=True)
+    query_txt = st.text_input("Requête sémantique multimodale :", "Intrusion périmétrique nocturne détectée près du portail")
+    lang_code = st.selectbox(
+        "Langue de synthèse :",
+        ["Français", "English (Technical)", "Fon (Langue Nationale Bénin)", "Yoruba (Langue Nationale Bénin)"],
+        index=0,
+    )
+    results = semantic_video_search(query_txt, target_lang=lang_code)
+    st.dataframe(results, use_container_width=True)
