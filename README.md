@@ -7,7 +7,8 @@
 [![Privacy Compliant](https://img.shields.io/badge/Privacy-Loi%202017--20%20%2F%20RGPD-d97706.svg)](#)
 
 > **Concepteur & Architecte Principal :** **Ing. Christophe WAVOEKE** — *Ingénieur de Conception en Génie Mathématique et Informatique (Bac+5, Lauréat ENSGMM / UNSTIM)*  
-> **Contact :** `christophewavoeke18@gmail.com` · **GitHub :** [github.com/ChristopheAnderson](https://github.com/ChristopheAnderson) · **Portfolio :** [christopher-portofolio.vercel.app](https://christopher-portofolio.vercel.app)
+> **Contact :** `christophewavoeke18@gmail.com` · **GitHub :** [github.com/ChristopheAnderson](https://github.com/ChristopheAnderson) · **Portfolio :** [christopher-portofolio.vercel.app](https://christopher-portofolio.vercel.app)  
+> **🌐 Démos Live Déployées :** [**Portail 5 Labs (`vision-inference-one.vercel.app`)**](https://vision-inference-one.vercel.app/) · [**EdgeVision QuantBench (`/quantbench`)**](https://vision-inference-one.vercel.app/quantbench) · [**Spécifications (`/architecture`)**](https://vision-inference-one.vercel.app/architecture) · [**API Swagger (`/api/docs`)**](https://vision-inference-one.vercel.app/api/docs)
 
 ---
 
