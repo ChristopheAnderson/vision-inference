@@ -46,6 +46,12 @@ def serve_docs():
     return HTMLResponse(content=_read_html("docs.html"))
 
 
+@app.get("/quantbench", response_class=HTMLResponse, include_in_schema=False)
+@app.get("/quantbench.html", response_class=HTMLResponse, include_in_schema=False)
+def serve_quantbench():
+    return HTMLResponse(content=_read_html("quantbench.html"))
+
+
 @app.get("/assets/{filename:path}", include_in_schema=False)
 def serve_assets(filename: str):
     file_path = BASE_DIR / "assets" / filename

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -45,6 +45,7 @@
 
         .navbar {
             background: rgba(255, 255, 255, 0.94);
+            -webkit-backdrop-filter: blur(12px);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
             padding: 12px 28px;
@@ -510,9 +511,10 @@
         </a>
         <div class="nav-actions">
             <span class="status-pill"><span class="status-dot"></span> Studio Live v2.5.0</span>
+            <a href="quantbench.html" class="btn btn-emerald"><i class="fa-solid fa-gauge-high"></i> Projet 2 : EdgeVision QuantBench</a>
             <a href="docs.html" class="btn btn-primary"><i class="fa-solid fa-book-open"></i> Spécifications &amp; Architecture</a>
             <a href="/api/docs" class="btn btn-secondary"><i class="fa-solid fa-bolt"></i> API FastAPI (/api/docs)</a>
-            <a href="https://github.com/ChristopheAnderson/vision-inference" target="_blank" class="btn btn-secondary"><i class="fa-brands fa-github"></i> GitHub</a>
+            <a href="https://github.com/ChristopheAnderson/vision-inference" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"><i class="fa-brands fa-github"></i> GitHub</a>
         </div>
     </nav>
 
@@ -538,8 +540,8 @@
                     <div class="author-role">Ingénieur IA Vision &amp; Optimisation GPU</div>
                     <div class="author-meta">Ingénieur de Conception Bac+5 · Lauréat ENSGMM</div>
                     <div style="margin-top:5px; display:flex; gap:10px; font-size:12px;">
-                        <a href="https://github.com/ChristopheAnderson" target="_blank" style="color:var(--primary); font-weight:700; text-decoration:none;"><i class="fa-brands fa-github"></i> GitHub</a>
-                        <a href="https://christopher-portofolio.vercel.app" target="_blank" style="color:var(--sky); font-weight:700; text-decoration:none;"><i class="fa-solid fa-globe"></i> Portfolio</a>
+                        <a href="https://github.com/ChristopheAnderson" target="_blank" rel="noopener noreferrer" style="color:var(--primary); font-weight:700; text-decoration:none;"><i class="fa-brands fa-github"></i> GitHub</a>
+                        <a href="https://christopher-portofolio.vercel.app" target="_blank" rel="noopener noreferrer" style="color:var(--sky); font-weight:700; text-decoration:none;"><i class="fa-solid fa-globe"></i> Portfolio</a>
                     </div>
                 </div>
             </div>
@@ -618,7 +620,7 @@
                         <i class="fa-solid fa-cloud-arrow-up" style="font-size:24px; color:var(--primary); margin-bottom:6px;"></i>
                         <div style="font-weight:700; font-size:13.5px;">Cliquez pour sélectionner une vidéo (.mp4 / .webm) sur votre PC</div>
                         <div style="font-size:11.5px; color:var(--text-muted);">Traitement 100% local en mémoire vive (aucun envoi serveur)</div>
-                        <input type="file" id="videoFileInput" accept="video/*" style="display:none;" onchange="handleVideoUpload(event)">
+                        <input title="Valeur du paramètre" type="file" id="videoFileInput" accept="video/*" style="display:none;" onchange="handleVideoUpload(event)">
                     </label>
 
                     <div class="control-group">
@@ -626,7 +628,7 @@
                             <span>Seuil de Changement de Scène (&Delta;Histogramme Couleur)</span>
                             <span class="control-val" id="sceneCutVal">0.24</span>
                         </div>
-                        <input type="range" id="sceneCutRange" min="0.08" max="0.50" step="0.02" value="0.24" oninput="document.getElementById('sceneCutVal').innerText=parseFloat(this.value).toFixed(2)">
+                        <input title="Valeur du paramètre" type="range" id="sceneCutRange" min="0.08" max="0.50" step="0.02" value="0.24" oninput="document.getElementById('sceneCutVal').innerText=parseFloat(this.value).toFixed(2)">
                     </div>
 
                     <div class="control-group">
@@ -634,7 +636,7 @@
                             <span>Seuil Minimal de Netteté (Variance du Laplacien — Rejet Flou)</span>
                             <span class="control-val" id="blurThreshVal">35.0</span>
                         </div>
-                        <input type="range" id="blurThreshRange" min="10" max="90" step="5" value="35" oninput="document.getElementById('blurThreshVal').innerText=parseFloat(this.value).toFixed(1)">
+                        <input title="Valeur du paramètre" type="range" id="blurThreshRange" min="10" max="90" step="5" value="35" oninput="document.getElementById('blurThreshVal').innerText=parseFloat(this.value).toFixed(1)">
                     </div>
 
                     <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px;">
@@ -683,7 +685,7 @@
 
                     <div class="control-group">
                         <div class="control-label"><span>Catégorie du Registre d'Invites Versionné</span></div>
-                        <select id="catSelect" onchange="runChainSimulation()">
+                        <select title="Sélectionner une option" id="catSelect" onchange="runChainSimulation()">
                             <option value="0.74">CAT_01 : Sécurité Périmétrique &amp; Intrusion (Seuil calibré = 0.74)</option>
                             <option value="0.68">CAT_02 : Anomalie Trafic &amp; Voie Publique (Seuil calibré = 0.68)</option>
                             <option value="0.81">CAT_03 : Intégrité Média &amp; Contenu Sensible (Seuil calibré = 0.81)</option>
@@ -696,7 +698,7 @@
                             <span>Logit Brut Sortie VLM (avant calibration)</span>
                             <span class="control-val" id="logitVal">2.15</span>
                         </div>
-                        <input type="range" id="logitRange" min="-1.0" max="4.5" step="0.05" value="2.15" oninput="runChainSimulation()">
+                        <input title="Valeur du paramètre" type="range" id="logitRange" min="-1.0" max="4.5" step="0.05" value="2.15" oninput="runChainSimulation()">
                     </div>
 
                     <div class="control-group">
@@ -704,7 +706,7 @@
                             <span>Température de Calibration Probabiliste (<i>T</i>*)</span>
                             <span class="control-val" id="tempVal">1.38</span>
                         </div>
-                        <input type="range" id="tempRange" min="0.80" max="2.50" step="0.02" value="1.38" oninput="runChainSimulation()">
+                        <input title="Valeur du paramètre" type="range" id="tempRange" min="0.80" max="2.50" step="0.02" value="1.38" oninput="runChainSimulation()">
                     </div>
 
                     <div class="control-group">
@@ -712,7 +714,7 @@
                             <span>Trames Positives dans la Fenêtre Temporelle (<i>N</i> = 5 trames)</span>
                             <span class="control-val" id="hitsVal">4 / 5</span>
                         </div>
-                        <input type="range" id="hitsRange" min="0" max="5" step="1" value="4" oninput="runChainSimulation()">
+                        <input title="Valeur du paramètre" type="range" id="hitsRange" min="0" max="5" step="1" value="4" oninput="runChainSimulation()">
                     </div>
                 </div>
 
@@ -782,7 +784,7 @@
                             <span>Seuil Max de Perte F1 Autorisé (Gate CI/CD)</span>
                             <span class="control-val" id="tolVal">1.00%</span>
                         </div>
-                        <input type="range" id="tolRange" min="0.10" max="1.50" step="0.05" value="1.00" oninput="updateRegressionTable()">
+                        <input title="Valeur du paramètre" type="range" id="tolRange" min="0.10" max="1.50" step="0.05" value="1.00" oninput="updateRegressionTable()">
                     </div>
                 </div>
 
@@ -825,7 +827,7 @@
 
                     <div class="control-group">
                         <div class="control-label"><span>Accélérateur GPU Cible</span></div>
-                        <select id="gpuSelect" onchange="updateCapacityPlanner()">
+                        <select title="Sélectionner une option" id="gpuSelect" onchange="updateCapacityPlanner()">
                             <option value="L4" selected>NVIDIA L4 (24 Go VRAM · 72W · 4 moteurs NVDEC) — Recommandé</option>
                             <option value="T4">NVIDIA T4 (16 Go VRAM · 70W · 2 moteurs NVDEC)</option>
                             <option value="A10G">NVIDIA A10G (24 Go VRAM · 150W · 3 moteurs NVDEC)</option>
@@ -838,7 +840,7 @@
                             <span>Volume Cible de Vidéos à Traiter par 24h</span>
                             <span class="control-val" id="volLabel">100 000 vidéos / 24h</span>
                         </div>
-                        <input type="range" id="volRange" min="10000" max="500000" step="10000" value="100000" oninput="updateCapacityPlanner()">
+                        <input title="Valeur du paramètre" type="range" id="volRange" min="10000" max="500000" step="10000" value="100000" oninput="updateCapacityPlanner()">
                     </div>
 
                     <div class="control-group">
@@ -846,7 +848,7 @@
                             <span>Durée Moyenne d'une Vidéo</span>
                             <span class="control-val" id="durLabel">60 secondes</span>
                         </div>
-                        <input type="range" id="durRange" min="15" max="180" step="15" value="60" oninput="updateCapacityPlanner()">
+                        <input title="Valeur du paramètre" type="range" id="durRange" min="15" max="180" step="15" value="60" oninput="updateCapacityPlanner()">
                     </div>
 
                     <div style="margin-top: 12px;">
@@ -953,14 +955,14 @@
                     <label class="upload-zone" for="privacyImgInput" style="display:block;">
                         <i class="fa-solid fa-image" style="font-size:22px; color:var(--primary); margin-bottom:4px;"></i>
                         <div style="font-weight:700; font-size:13px;">Importer une photo (.jpg / .png) à anonymiser</div>
-                        <input type="file" id="privacyImgInput" accept="image/*" style="display:none;" onchange="handlePrivacyImageUpload(event)">
+                        <input title="Valeur du paramètre" type="file" id="privacyImgInput" accept="image/*" style="display:none;" onchange="handlePrivacyImageUpload(event)">
                     </label>
 
                     <div class="control-group">
                         <div class="control-label">
                             <span>Mode d'Anonymisation Irréversible en RAM</span>
                         </div>
-                        <select id="blurModeSelect" onchange="renderPrivacyCanvas()">
+                        <select title="Sélectionner une option" id="blurModeSelect" onchange="renderPrivacyCanvas()">
                             <option value="mosaic">Mosaïque Haute Sécurité + Floutage (Recommandé Production)</option>
                             <option value="gaussian">Floutage Gaussien Fort (&sigma; = 25)</option>
                             <option value="blackout">Masquage Noir Intégral (Redaction Box)</option>
@@ -972,7 +974,7 @@
                             <span>Intensité du Filtre (Taille de Noyau / Bloc)</span>
                             <span class="control-val" id="blurStrengthVal">18 px</span>
                         </div>
-                        <input type="range" id="blurStrengthRange" min="8" max="36" step="2" value="18" oninput="document.getElementById('blurStrengthVal').innerText=this.value+' px'; renderPrivacyCanvas();">
+                        <input title="Valeur du paramètre" type="range" id="blurStrengthRange" min="8" max="36" step="2" value="18" oninput="document.getElementById('blurStrengthVal').innerText=this.value+' px'; renderPrivacyCanvas();">
                     </div>
 
                     <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;">
